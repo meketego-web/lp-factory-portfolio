@@ -1,0 +1,41 @@
+# LP Factory — 価格設定 & 修正ポリシー
+
+plans:
+  light:
+    name: ライトプラン
+    price: 10000
+    description: テンプレートベースのLP制作
+    includes:
+      - レスポンシブ対応LP 1ページ
+      - テンプレートベースのデザイン
+      - 修正2回まで無料
+    delivery_days: 3
+
+  standard:
+    name: スタンダードプラン
+    price: 15000
+    description: カスタムレイアウトのLP制作
+    includes:
+      - レスポンシブ対応LP 1ページ
+      - カスタムレイアウト・配色
+      - 修正3回まで無料
+    delivery_days: 5
+
+options:
+  extra_section:
+    name: 追加セクション
+    price: 3000
+  form_setup:
+    name: フォーム設置（Googleフォーム/Formspree）
+    price: 5000
+  extra_revision:
+    name: 追加修正（1回あたり）
+    price: 2000
+
+revision_policy:
+  light_max: 2
+  standard_max: 3
+  extra_per_revision: 2000
+  note: >
+    修正は「テキスト・画像の差替え」「カラー変更」「セクション順序変更」を含みます。
+    レイアウトの大幅な変更は追加料金が発生する場合があります。

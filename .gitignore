@@ -1,0 +1,20 @@
+# Client deliverables (large images, zips)
+clients/*/dist/*.zip
+clients/*/dist/images/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+*.swp
+*.swo
+
+# Node (if ever needed)
+node_modules/
+
+# Secrets
+*.env
+secrets.*

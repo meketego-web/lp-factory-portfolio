@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ビジネスコーチ 山田太郎 — 経営者・起業家の成長を支援するパーソナルコーチング。初回無料相談受付中。">
+
+  <!-- OGP -->
+  <meta property="og:title" content="山田太郎 | ビジネスコーチング">
+  <meta property="og:description" content="経営者・起業家の成長を加速させるパーソナルコーチング。初回無料相談受付中。">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <title>山田太郎 | ビジネスコーチング</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: 'var(--color-primary)',
+            'primary-dark': 'var(--color-primary-dark)',
+            secondary: 'var(--color-secondary)',
+            accent: 'var(--color-accent)',
+            surface: 'var(--color-surface)',
+            'surface-alt': 'var(--color-surface-alt)',
+            'on-primary': 'var(--color-on-primary)',
+            'on-surface': 'var(--color-on-surface)',
+          },
+          fontFamily: {
+            heading: 'var(--font-heading)',
+            body: 'var(--font-body)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== Coach テーマ ===== */
+    :root {
+      --color-primary: #1e3a5f;
+      --color-primary-dark: #152c4a;
+      --color-secondary: #c9a84c;
+      --color-accent: #2d8cf0;
+      --color-surface: #ffffff;
+      --color-surface-alt: #f0f4f8;
+      --color-on-primary: #ffffff;
+      --color-on-surface: #1a202c;
+
+      --font-heading: 'Noto Sans JP', sans-serif;
+      --font-body: 'Noto Sans JP', sans-serif;
+
+      --section-py: 5rem;
+      --container-max: 1200px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-on-surface);
+      line-height: 1.8;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      line-height: 1.4;
+    }
+
+    .section-padding { padding-top: var(--section-py); padding-bottom: var(--section-py); }
+    .container-custom { max-width: var(--container-max); margin: 0 auto; padding-left: 1.5rem; padding-right: 1.5rem; }
+
+    .btn-primary {
+      display: inline-block; background: var(--color-primary); color: var(--color-on-primary);
+      padding: 0.875rem 2.5rem; border-radius: 0.5rem; font-weight: 700; font-size: 1.125rem;
+      text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    }
+    .btn-primary:hover { background: var(--color-primary-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+
+    .btn-accent {
+      display: inline-block; background: var(--color-secondary); color: var(--color-primary);
+      padding: 0.875rem 2.5rem; border-radius: 0.5rem; font-weight: 700; font-size: 1.125rem;
+      text-decoration: none; transition: all 0.3s ease; box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    }
+    .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+
+    .card {
+      background: var(--color-surface); border-radius: 1rem; padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+
+    .section-title { font-size: 2rem; font-weight: 900; text-align: center; margin-bottom: 0.5rem; }
+    .section-subtitle { text-align: center; color: #64748b; font-size: 1.125rem; margin-bottom: 3rem; }
+    .section-label { text-align: center; color: var(--color-secondary); font-size: 0.875rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.5rem; }
+
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    .stat-number { font-size: 3rem; font-weight: 900; color: var(--color-primary); line-height: 1; }
+
+    @media (max-width: 768px) {
+      :root { --section-py: 3rem; }
+      .section-title { font-size: 1.5rem; }
+      .stat-number { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm">
+    <div class="container-custom flex items-center justify-between h-16">
+      <a href="#" class="text-lg font-bold text-[var(--color-primary)]">
+        山田太郎 | Coach
+      </a>
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#service" class="text-sm hover:text-[var(--color-primary)] transition-colors">サービス</a>
+        <a href="#results" class="text-sm hover:text-[var(--color-primary)] transition-colors">実績</a>
+        <a href="#flow" class="text-sm hover:text-[var(--color-primary)] transition-colors">ご利用の流れ</a>
+        <a href="#profile" class="text-sm hover:text-[var(--color-primary)] transition-colors">プロフィール</a>
+        <a href="#contact" class="btn-primary !py-2 !px-6 !text-sm">無料相談を予約</a>
+      </nav>
+      <button id="mobile-menu-btn" class="md:hidden p-2" aria-label="メニューを開く">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+      <div class="container-custom py-4 flex flex-col gap-4">
+        <a href="#service" class="text-sm">サービス</a>
+        <a href="#results" class="text-sm">実績</a>
+        <a href="#flow" class="text-sm">ご利用の流れ</a>
+        <a href="#profile" class="text-sm">プロフィール</a>
+        <a href="#contact" class="btn-primary text-center !text-sm">無料相談を予約</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero" class="relative min-h-screen flex items-center bg-[var(--color-primary)]">
+    <div class="absolute inset-0 opacity-20">
+      <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80" alt="" class="w-full h-full object-cover">
+    </div>
+    <div class="container-custom relative z-10 grid md:grid-cols-2 gap-12 items-center">
+      <div class="text-white">
+        <p class="text-[var(--color-secondary)] font-bold text-sm tracking-widest mb-4 fade-in">BUSINESS COACHING</p>
+        <h1 class="text-3xl md:text-5xl font-black mb-6 leading-tight fade-in">
+          あなたのビジネスを<br>次のステージへ
+        </h1>
+        <p class="text-lg mb-8 opacity-90 leading-relaxed fade-in">
+          500名以上の経営者を支援してきた実績をもとに、<br class="hidden md:inline">あなたの課題を明確にし、成長を加速させます。
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 fade-in">
+          <a href="#contact" class="btn-accent text-center">初回無料相談を予約</a>
+          <a href="#service" class="inline-block border-2 border-white/50 text-white font-bold py-3 px-8 rounded-lg hover:bg-white/10 transition-all text-center">サービスを見る</a>
+        </div>
+      </div>
+      <div class="hidden md:block fade-in">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="山田太郎" class="rounded-2xl shadow-2xl w-full max-w-md mx-auto">
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="py-12 bg-white border-b">
+    <div class="container-custom">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="fade-in">
+          <p class="stat-number">500<span class="text-xl">+</span></p>
+          <p class="text-sm text-gray-500 mt-1">クライアント数</p>
+        </div>
+        <div class="fade-in">
+          <p class="stat-number">15<span class="text-xl">年</span></p>
+          <p class="text-sm text-gray-500 mt-1">コーチング経験</p>
+        </div>
+        <div class="fade-in">
+          <p class="stat-number">92<span class="text-xl">%</span></p>
+          <p class="text-sm text-gray-500 mt-1">目標達成率</p>
+        </div>
+        <div class="fade-in">
+          <p class="stat-number">4.9</p>
+          <p class="text-sm text-gray-500 mt-1">顧客満足度</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE -->
+  <section id="service" class="section-padding bg-[var(--color-surface-alt)]">
+    <div class="container-custom">
+      <p class="section-label fade-in">Service</p>
+      <h2 class="section-title fade-in">サービス内容</h2>
+      <p class="section-subtitle fade-in">ステージに合わせた3つのコーチングプランをご用意</p>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="card fade-in border-t-4 border-[var(--color-accent)]">
+          <p class="text-[var(--color-accent)] font-bold text-sm mb-2">STARTER</p>
+          <h3 class="text-xl font-bold mb-3">スタートアップ支援</h3>
+          <p class="text-gray-600 mb-4">起業初期の方向け。ビジネスモデルの構築から収益化までを伴走支援。</p>
+          <ul class="text-sm text-gray-600 space-y-2 mb-6">
+            <li class="flex items-start gap-2"><span class="text-[var(--color-accent)]">✓</span> 月2回のセッション（60分）</li>
+            <li class="flex items-start gap-2"><span class="text-[var(--color-accent)]">✓</span> チャットでの質問し放題</li>
+            <li class="flex items-start gap-2"><span class="text-[var(--color-accent)]">✓</span> アクションプラン作成</li>
+          </ul>
+          <p class="text-[var(--color-primary)] font-bold text-2xl">¥50,000<span class="text-sm font-normal">/月</span></p>
+        </div>
+        <div class="card fade-in border-t-4 border-[var(--color-secondary)] relative">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-[var(--color-secondary)] text-[var(--color-primary)] text-xs font-bold px-4 py-1 rounded-full">人気No.1</div>
+          <p class="text-[var(--color-secondary)] font-bold text-sm mb-2">GROWTH</p>
+          <h3 class="text-xl font-bold mb-3">成長加速プラン</h3>
+          <p class="text-gray-600 mb-4">事業拡大フェーズの方向け。売上・組織・仕組みづくりを戦略的にサポート。</p>
+          <ul class="text-sm text-gray-600 space-y-2 mb-6">
+            <li class="flex items-start gap-2"><span class="text-[var(--color-secondary)]">✓</span> 月4回のセッション（90分）</li>
+            <li class="flex items-start gap-2"><span class="text-[var(--color-secondary)]">✓</span> 経営戦略レビュー</li>
+            <li class="flex items-start gap-2"><span class="text-[var(--color-secondary)]">✓</span> KPI設計・進捗管理</li>
+            <li class="flex items-start gap-2"><span class="text-[var(--color-secondary)]">✓</span> 緊急時の電話相談</li>
+          </ul>
+          <p class="text-[var(--color-primary)] font-bold text-2xl">¥100,000<span class="text-sm font-normal">/月</span></p>
+        </div>
+        <div class="card fade-in border-t-4 border-[var(--color-primary)]">
+          <p class="text-[var(--color-primary)] font-bold text-sm mb-2">EXECUTIVE</p>
+          <h3 class="text-xl font-bold mb-3">エグゼクティブコーチング</h3>
+          <p class="text-gray-600 mb-4">経営者・幹部向け。リーダーシップ強化と組織変革を深層レベルで支援。</p>
+          <ul class="text-sm text-gray-600 space-y-2 mb-6">
+            <li class="flex items-start gap-2"><span class="text-[var(--color-primary)]">✓</span> 完全オーダーメイド設計</li>
+            <li class="flex items-start gap-2"><span class="text-[var(--color-primary)]">✓</span> 360度フィードバック</li>
+            <li class="flex items-start gap-2"><span class="text-[var(--color-primary)]">✓</span> 経営幹部チームコーチング</li>
+            <li class="flex items-start gap-2"><span class="text-[var(--color-primary)]">✓</span> 月間無制限セッション</li>
+          </ul>
+          <p class="text-[var(--color-primary)] font-bold text-2xl">¥200,000<span class="text-sm font-normal">〜/月</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS / TESTIMONIALS -->
+  <section id="results" class="section-padding">
+    <div class="container-custom">
+      <p class="section-label fade-in">Results</p>
+      <h2 class="section-title fade-in">クライアントの成果</h2>
+      <p class="section-subtitle fade-in">コーチングを通じて変化を遂げたクライアントの声</p>
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div class="card fade-in">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center font-bold text-[var(--color-primary)]">IT</div>
+            <div>
+              <p class="font-bold">T.S 様</p>
+              <p class="text-sm text-gray-500">IT企業 代表取締役</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4">「コーチングを受けて6ヶ月で売上が1.8倍に。自分では気づけなかった課題が明確になり、チームの動き方が根本から変わりました。」</p>
+          <p class="text-[var(--color-secondary)] font-bold text-sm">売上 1.8倍達成（6ヶ月）</p>
+        </div>
+        <div class="card fade-in">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center font-bold text-[var(--color-primary)]">飲</div>
+            <div>
+              <p class="font-bold">K.M 様</p>
+              <p class="text-sm text-gray-500">飲食チェーン オーナー</p>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4">「3店舗から8店舗まで拡大する過程で、組織の壁にぶつかっていました。山田さんのおかげで、任せる経営ができるようになりました。」</p>
+          <p class="text-[var(--color-secondary)] font-bold text-sm">3店舗 → 8店舗に拡大</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOW -->
+  <section id="flow" class="section-padding bg-[var(--color-surface-alt)]">
+    <div class="container-custom">
+      <p class="section-label fade-in">Flow</p>
+      <h2 class="section-title fade-in">ご利用の流れ</h2>
+      <p class="section-subtitle fade-in">初回の無料相談からスタート。無理な勧誘は一切ございません。</p>
+      <div class="max-w-3xl mx-auto space-y-8">
+        <div class="flex gap-6 items-start fade-in">
+          <div class="w-12 h-12 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center font-bold text-lg flex-shrink-0">1</div>
+          <div>
+            <h3 class="text-lg font-bold mb-1">無料相談のお申し込み</h3>
+            <p class="text-gray-600">フォームまたはお電話から、ご都合のよい日時をお知らせください。</p>
+          </div>
+        </div>
+        <div class="flex gap-6 items-start fade-in">
+          <div class="w-12 h-12 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center font-bold text-lg flex-shrink-0">2</div>
+          <div>
+            <h3 class="text-lg font-bold mb-1">初回無料セッション（60分）</h3>
+            <p class="text-gray-600">現在の課題や目標をヒアリングし、最適なコーチングプランをご提案します。</p>
+          </div>
+        </div>
+        <div class="flex gap-6 items-start fade-in">
+          <div class="w-12 h-12 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center font-bold text-lg flex-shrink-0">3</div>
+          <div>
+            <h3 class="text-lg font-bold mb-1">コーチング開始</h3>
+            <p class="text-gray-600">合意いただいたプランでコーチングを開始。定期的な振り返りで成長を実感いただけます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFILE -->
+  <section id="profile" class="section-padding">
+    <div class="container-custom">
+      <p class="section-label fade-in">Profile</p>
+      <h2 class="section-title fade-in">コーチ紹介</h2>
+      <div class="max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-10 mt-10 fade-in">
+        <div class="w-48 h-48 rounded-2xl overflow-hidden flex-shrink-0 shadow-lg">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="山田太郎" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <h3 class="text-2xl font-black mb-2">山田 太郎</h3>
+          <p class="text-[var(--color-secondary)] font-bold mb-4">ビジネスコーチ / ICF認定PCC</p>
+          <p class="text-gray-600 leading-relaxed mb-4">外資系コンサルティングファームで15年間、戦略コンサルタントとして活躍。その後、「一人ひとりの経営者に深く寄り添いたい」という想いからコーチとして独立。論理的な思考と共感力を武器に、500名以上の経営者の変革を支援。</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-[var(--color-surface-alt)] text-sm px-3 py-1 rounded-full">ICF認定PCC</span>
+            <span class="bg-[var(--color-surface-alt)] text-sm px-3 py-1 rounded-full">MBA（慶應義塾大学）</span>
+            <span class="bg-[var(--color-surface-alt)] text-sm px-3 py-1 rounded-full">元McKinsey</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contact" class="section-padding bg-[var(--color-primary)] text-white">
+    <div class="container-custom text-center">
+      <h2 class="text-3xl md:text-4xl font-black mb-6 fade-in">まずは無料相談から</h2>
+      <p class="text-lg mb-4 opacity-90 max-w-xl mx-auto fade-in">60分の無料セッションで、あなたの課題を一緒に整理しましょう。<br>無理な勧誘は一切いたしません。</p>
+      <p class="text-[var(--color-secondary)] font-bold mb-10 fade-in">毎月先着5名様限定</p>
+      <a href="#" class="btn-accent text-lg fade-in">
+        無料相談を予約する →
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-gray-900 text-gray-400 py-12">
+    <div class="container-custom">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div>
+          <p class="text-white font-bold text-lg mb-2">山田太郎 | ビジネスコーチング</p>
+          <p class="text-sm">東京都港区○○ 2-3-4</p>
+          <p class="text-sm">info@yamada-coaching.example.com</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">X (Twitter)</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">LinkedIn</a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">note</a>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-6 text-center text-sm">
+        <p>&copy; 2026 山田太郎 All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('shadow-md', window.scrollY > 50);
+    });
+  </script>
+
+</body>
+</html>

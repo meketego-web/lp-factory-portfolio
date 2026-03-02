@@ -1,0 +1,50 @@
+# Lumière Nail — 架空案件（通しテスト用）
+
+business:
+  name: "Lumière Nail"
+  industry: "salon"
+  tagline: "指先から始まる、あなただけの物語"
+  description: "表参道の隠れ家ネイルサロン。ジェルネイル・スカルプチュアを中心に、トレンドからシンプルまで幅広く対応。完全予約制・女性専用。"
+
+design:
+  primary_color: "#c77dba"
+  secondary_color: "#f0c987"
+  font_style: "classic"
+  mood: "柔らかい"
+
+content:
+  features:
+    - title: "完全予約制"
+      description: "お一人ずつ丁寧に施術。待ち時間なしのプライベート空間で、ゆったりとお過ごしいただけます。"
+    - title: "最新トレンド対応"
+      description: "韓国・海外の最新デザインもご提案。SNSで見つけたデザインの持ち込みも大歓迎です。"
+    - title: "爪に優しい施術"
+      description: "パラジェル・フィルイン対応で、爪への負担を最小限に。長く美しいネイルライフをサポートします。"
+
+  testimonials:
+    - name: "Y.T 様（20代女性）"
+      comment: "毎回デザインの相談に乗ってくれて、想像以上に可愛く仕上がります。もう他のサロンには行けません！"
+    - name: "R.M 様（30代女性）"
+      comment: "爪が薄くて悩んでいましたが、パラジェルに変えてから全然違います。技術力が高くて信頼できます。"
+
+  profile:
+    name: "佐藤 ゆか"
+    title: "オーナーネイリスト / JNA1級"
+    bio: "都内有名サロンで8年の経験を経て、2023年に独立。「お客様の日常に小さな幸せを」をモットーに、一人ひとりのライフスタイルに合わせたネイルをご提案しています。"
+
+  contact:
+    phone: "03-9876-5432"
+    email: "info@lumiere-nail.example.com"
+    address: "東京都渋谷区神宮前 4-5-6 ○○ビル 2F"
+    hours: "10:00 〜 20:00（最終受付 18:30）"
+    sns:
+      instagram: "@lumiere_nail"
+      line: "@lumiere-nail"
+
+  cta_text: "ご予約はこちら"
+  cta_url: "#"
+
+assets:
+  logo_url: ""
+  hero_image: ""
+  gallery: []

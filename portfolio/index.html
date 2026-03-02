@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LP制作ポートフォリオ — レスポンシブ対応のランディングページ制作を承ります。">
+  <title>LP制作ポートフォリオ</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #1a1a2e;
+      --accent: #e94560;
+      --surface: #f8f9fa;
+    }
+    body { font-family: 'Noto Sans JP', sans-serif; color: #1a1a2e; }
+    html { scroll-behavior: smooth; }
+
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    .work-card { position: relative; overflow: hidden; border-radius: 1rem; }
+    .work-card img { transition: transform 0.4s ease; }
+    .work-card:hover img { transform: scale(1.05); }
+    .work-overlay {
+      position: absolute; inset: 0; background: linear-gradient(transparent 40%, rgba(0,0,0,0.8));
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .work-card:hover .work-overlay { opacity: 1; }
+  </style>
+</head>
+<body class="bg-white">
+
+  <!-- HEADER -->
+  <header class="bg-[var(--primary)] text-white">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <span class="font-bold text-lg">LP制作ポートフォリオ</span>
+      <nav class="hidden md:flex gap-6 text-sm">
+        <a href="#works" class="hover:text-[var(--accent)] transition-colors">制作実績</a>
+        <a href="#service" class="hover:text-[var(--accent)] transition-colors">サービス</a>
+        <a href="#pricing" class="hover:text-[var(--accent)] transition-colors">料金</a>
+        <a href="#contact" class="bg-[var(--accent)] px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">お問い合わせ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="bg-[var(--primary)] text-white py-20 md:py-32">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h1 class="text-3xl md:text-5xl font-black mb-6 leading-tight fade-in">
+        伝わる。響く。<br>成果につながるLP制作
+      </h1>
+      <p class="text-lg md:text-xl opacity-80 max-w-2xl mx-auto mb-10 fade-in">
+        レスポンシブ対応・高速表示のランディングページを<br class="hidden md:inline">スピーディーに制作いたします。
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 fade-in">
+        <span class="bg-white/10 px-4 py-2 rounded-full text-sm">HTML / CSS / JS</span>
+        <span class="bg-white/10 px-4 py-2 rounded-full text-sm">レスポンシブ対応</span>
+        <span class="bg-white/10 px-4 py-2 rounded-full text-sm">最短3日納品</span>
+        <span class="bg-white/10 px-4 py-2 rounded-full text-sm">修正対応込み</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section id="works" class="py-20 bg-[var(--surface)]">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl md:text-3xl font-black text-center mb-4 fade-in">制作実績</h2>
+      <p class="text-center text-gray-500 mb-12 fade-in">業種に合わせたデザインでお客様のビジネスを支援します</p>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Work 1: Salon -->
+        <div class="work-card shadow-lg fade-in">
+          <div class="aspect-video bg-gradient-to-br from-[#b07d62]/20 to-[#d4a574]/20 flex items-center justify-center">
+            <div class="text-center p-8">
+              <div class="w-20 h-20 rounded-full bg-[#b07d62] mx-auto mb-4 flex items-center justify-center">
+                <span class="text-white text-2xl font-bold" style="font-family: 'Noto Serif JP', serif;">B</span>
+              </div>
+              <h3 class="text-xl font-bold text-[#3d2b1f]" style="font-family: 'Noto Serif JP', serif;">Bloom</h3>
+              <p class="text-sm text-[#8b7355]">プライベートサロン</p>
+            </div>
+          </div>
+          <div class="p-6 bg-white">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="bg-[#b07d62]/10 text-[#b07d62] text-xs font-bold px-3 py-1 rounded-full">美容・サロン</span>
+            </div>
+            <h3 class="font-bold text-lg mb-2">Bloom — 美と癒しのプライベートサロン</h3>
+            <p class="text-gray-600 text-sm mb-4">完全予約制のプライベートサロン向けLP。柔らかいセリフ体と暖色系カラーで、癒しと上質感を演出。施術メニュー・お客様の声・アクセス情報を網羅。</p>
+            <div class="flex flex-wrap gap-2 text-xs text-gray-500">
+              <span class="bg-gray-100 px-2 py-1 rounded">レスポンシブ</span>
+              <span class="bg-gray-100 px-2 py-1 rounded">アニメーション</span>
+              <span class="bg-gray-100 px-2 py-1 rounded">Tailwind CSS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Work 2: Coach -->
+        <div class="work-card shadow-lg fade-in">
+          <div class="aspect-video bg-gradient-to-br from-[#1e3a5f]/20 to-[#c9a84c]/20 flex items-center justify-center">
+            <div class="text-center p-8">
+              <div class="w-20 h-20 rounded-full bg-[#1e3a5f] mx-auto mb-4 flex items-center justify-center">
+                <span class="text-[#c9a84c] text-2xl font-black">Y</span>
+              </div>
+              <h3 class="text-xl font-black text-[#1e3a5f]">山田太郎</h3>
+              <p class="text-sm text-gray-500">ビジネスコーチング</p>
+            </div>
+          </div>
+          <div class="p-6 bg-white">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="bg-[#1e3a5f]/10 text-[#1e3a5f] text-xs font-bold px-3 py-1 rounded-full">コーチ・コンサル</span>
+            </div>
+            <h3 class="font-bold text-lg mb-2">山田太郎 — ビジネスコーチング</h3>
+            <p class="text-gray-600 text-sm mb-4">経営者向けコーチング事業のLP。紺×金のカラーで権威性と信頼感を演出。料金プラン3段、実績数値、ご利用の流れを構成。</p>
+            <div class="flex flex-wrap gap-2 text-xs text-gray-500">
+              <span class="bg-gray-100 px-2 py-1 rounded">レスポンシブ</span>
+              <span class="bg-gray-100 px-2 py-1 rounded">料金表</span>
+              <span class="bg-gray-100 px-2 py-1 rounded">統計カウンター</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE -->
+  <section id="service" class="py-20">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl md:text-3xl font-black text-center mb-4 fade-in">サービスの特徴</h2>
+      <p class="text-center text-gray-500 mb-12 fade-in">なぜお客様に選んでいただけるのか</p>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center fade-in">
+          <div class="w-16 h-16 rounded-2xl bg-[var(--accent)]/10 mx-auto mb-4 flex items-center justify-center text-[var(--accent)] text-2xl font-bold">01</div>
+          <h3 class="font-bold text-lg mb-2">スピード納品</h3>
+          <p class="text-gray-600 text-sm">最短3日で納品可能。お急ぎの方にも柔軟に対応いたします。</p>
+        </div>
+        <div class="text-center fade-in">
+          <div class="w-16 h-16 rounded-2xl bg-[var(--accent)]/10 mx-auto mb-4 flex items-center justify-center text-[var(--accent)] text-2xl font-bold">02</div>
+          <h3 class="font-bold text-lg mb-2">レスポンシブ標準</h3>
+          <p class="text-gray-600 text-sm">スマホ・タブレット・PCすべてに最適化。Lighthouse 90+の高品質を保証。</p>
+        </div>
+        <div class="text-center fade-in">
+          <div class="w-16 h-16 rounded-2xl bg-[var(--accent)]/10 mx-auto mb-4 flex items-center justify-center text-[var(--accent)] text-2xl font-bold">03</div>
+          <h3 class="font-bold text-lg mb-2">修正対応込み</h3>
+          <p class="text-gray-600 text-sm">テキスト・画像・カラー変更の修正を無料で対応。安心してご依頼ください。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="py-20 bg-[var(--surface)]">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-2xl md:text-3xl font-black text-center mb-4 fade-in">料金プラン</h2>
+      <p class="text-center text-gray-500 mb-12 fade-in">ご予算・ご要望に合わせてお選びください</p>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+        <div class="bg-white rounded-2xl shadow-lg p-8 fade-in">
+          <p class="text-[var(--accent)] font-bold text-sm mb-2">LIGHT</p>
+          <h3 class="text-2xl font-black mb-1">ライトプラン</h3>
+          <p class="text-4xl font-black text-[var(--primary)] mb-4">¥10,000</p>
+          <ul class="space-y-3 text-sm text-gray-600 mb-6">
+            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> レスポンシブ対応LP 1ページ</li>
+            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> テンプレートベースデザイン</li>
+            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> 修正2回まで無料</li>
+            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> 納期: 3日</li>
+          </ul>
+          <a href="#contact" class="block text-center bg-[var(--primary)] text-white py-3 rounded-lg font-bold hover:opacity-90 transition-opacity">このプランで相談</a>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-[var(--accent)] relative fade-in">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--accent)] text-white text-xs font-bold px-4 py-1 rounded-full">おすすめ</div>
+          <p class="text-[var(--accent)] font-bold text-sm mb-2">STANDARD</p>
+          <h3 class="text-2xl font-black mb-1">スタンダードプラン</h3>
+          <p class="text-4xl font-black text-[var(--primary)] mb-4">¥15,000</p>
+          <ul class="space-y-3 text-sm text-gray-600 mb-6">
+            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> レスポンシブ対応LP 1ページ</li>
+            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> カスタムレイアウト・配色</li>
+            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> 修正3回まで無料</li>
+            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> 納期: 5日</li>
+          </ul>
+          <a href="#contact" class="block text-center bg-[var(--accent)] text-white py-3 rounded-lg font-bold hover:opacity-90 transition-opacity">このプランで相談</a>
+        </div>
+      </div>
+
+      <div class="text-center mt-8 text-sm text-gray-500 fade-in">
+        <p>オプション: 追加セクション +¥3,000 / フォーム設置 +¥5,000 / 追加修正 +¥2,000/回</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / CONTACT -->
+  <section id="contact" class="py-20 bg-[var(--primary)] text-white">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-black mb-6 fade-in">まずはお気軽にご相談ください</h2>
+      <p class="text-lg opacity-80 max-w-xl mx-auto mb-10 fade-in">
+        ご要望をお聞かせいただければ、最適なプランをご提案いたします。<br>お見積りは無料です。
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in">
+        <a href="#" class="inline-block bg-[var(--accent)] text-white font-bold text-lg py-4 px-10 rounded-lg hover:opacity-90 transition-all">
+          <!-- TODO: ココナラ出品URLに差替え -->
+          ココナラで依頼する
+        </a>
+        <a href="#" class="inline-block border-2 border-white/50 text-white font-bold text-lg py-4 px-10 rounded-lg hover:bg-white/10 transition-all">
+          <!-- TODO: CrowdWorksプロフィールURLに差替え -->
+          CrowdWorksで依頼する
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#111] text-gray-500 py-8">
+    <div class="max-w-6xl mx-auto px-6 text-center text-sm">
+      <p>&copy; 2026 LP制作ポートフォリオ All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+# LP Factory — ヒアリングシートスキーマ
+# クライアントから収集する情報の定義
+
+business:
+  name: ""              # 店舗名・事業名（必須）
+  industry: ""          # 業種: salon / coach（必須）
+  tagline: ""           # キャッチコピー（空の場合は自動生成）
+  description: ""       # サービス概要（2〜3文）
+
+design:
+  primary_color: ""     # メインカラー hex値（空の場合は業種デフォルト）
+  secondary_color: ""   # サブカラー hex値（空の場合は自動補完）
+  font_style: ""        # modern / classic / playful（空の場合は業種デフォルト）
+  mood: ""              # 柔らかい / 力強い / シンプル / 高級感
+
+content:
+  features:             # サービス特徴（3〜4項目）
+    - title: ""
+      description: ""
+  testimonials:         # お客様の声（2〜3件）
+    - name: ""
+      comment: ""
+  profile:
+    name: ""            # オーナー/講師名
+    title: ""           # 肩書き
+    bio: ""             # 紹介文
+  contact:
+    phone: ""
+    email: ""
+    address: ""
+    hours: ""           # 営業時間
+    sns:
+      instagram: ""
+      twitter: ""
+      line: ""
+  cta_text: ""          # CTAボタンテキスト（例: 「無料相談はこちら」）
+  cta_url: ""           # CTAリンク先
+
+assets:
+  logo_url: ""          # ロゴ画像URL（任意）
+  hero_image: ""        # ヒーロー画像URL（任意、なければフリー素材で仮組み）
+  gallery: []           # その他画像URL（任意）
