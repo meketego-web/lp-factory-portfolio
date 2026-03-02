@@ -1,6 +1,18 @@
+# === AI / Internal (公開リポジトリに絶対出さない) ===
+CLAUDE.md
+.claude/
+plans/
+
+# Client data (要件・納品物すべて)
+clients/
+
+# Internal docs & config
+docs/
+config/pricing.yaml
+config/profiles/
+
 # Client deliverables (large images, zips)
-clients/*/dist/*.zip
-clients/*/dist/images/
+*.zip
 
 # OS files
 .DS_Store
