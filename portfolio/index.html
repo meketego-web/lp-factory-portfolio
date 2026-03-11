@@ -3,229 +3,1066 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="S_Web — 営業出身が作る"伝わる"ランディングページ(LP)制作。レスポンシブ対応・最短3日納品。">
-  <title>S_Web | LP制作ポートフォリオ</title>
+  <meta name="description" content="Tego — AI自動化エンジニア。美容サロン・クリニック・介護施設の「めんどくさい」を、仕組みに変える。">
+  <title>Tego | AI自動化エンジニア</title>
+
+  <!-- OGP -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tego | AI自動化エンジニア">
+  <meta property="og:description" content="美容サロン・クリニック・介護施設の「めんどくさい」を、仕組みに変える。">
+  <meta property="og:site_name" content="Tego Portfolio">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tego | AI自動化エンジニア">
+  <meta name="twitter:description" content="美容サロン・クリニック・介護施設の「めんどくさい」を、仕組みに変える。">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230f1117'/><rect x='25' y='20' width='50' height='14' rx='3' fill='%23ff6b35'/><rect x='40' y='20' width='14' height='60' rx='3' fill='%23ff6b35'/><rect x='25' y='20' width='50' height='14' rx='3' fill='%23ff6b35' opacity='.6'/></svg>">
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: { DEFAULT: '#0f1117', light: '#1a1d27' },
+            slate: '#1a1d27',
+            paper: '#f7f6f3',
+            sand: '#e8e4dd',
+            ember: { DEFAULT: '#ff6b35', dark: '#e55a25', glow: 'rgba(255,107,53,0.15)' },
+            mint: { DEFAULT: '#2dd4a8', light: '#d1faf0' },
+            smoke: '#8b8b97',
+            cloud: '#c4c3ce',
+          },
+          fontFamily: {
+            heading: ['"Zen Kaku Gothic New"', 'sans-serif'],
+            body: ['"Noto Sans JP"', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap" rel="stylesheet">
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
   <style>
     :root {
-      --primary: #1a1a2e;
-      --accent: #e94560;
-      --surface: #f8f9fa;
+      --ink: #0f1117;
+      --slate: #1a1d27;
+      --paper: #f7f6f3;
+      --sand: #e8e4dd;
+      --ember: #ff6b35;
+      --mint: #2dd4a8;
+      --smoke: #8b8b97;
+      --cloud: #c4c3ce;
     }
-    body { font-family: 'Noto Sans JP', sans-serif; color: #1a1a2e; }
+    body { font-family: 'Noto Sans JP', sans-serif; color: #1e293b; }
     html { scroll-behavior: smooth; }
 
-    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    /* Header scroll state */
+    .header-transparent { background: transparent; border-color: transparent; }
+    .header-solid { background: rgba(15,17,23,0.95); backdrop-filter: blur(12px); border-color: rgba(255,255,255,0.05); }
 
-    .work-card { position: relative; overflow: hidden; border-radius: 1rem; }
-    .work-card img { transition: transform 0.4s ease; }
-    .work-card:hover img { transform: scale(1.05); }
-    .work-overlay {
-      position: absolute; inset: 0; background: linear-gradient(transparent 40%, rgba(0,0,0,0.8));
-      display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem;
-      opacity: 0; transition: opacity 0.3s ease;
+    /* Nav active indicator */
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+      background: var(--ember); transition: width 0.3s ease;
     }
-    .work-card:hover .work-overlay { opacity: 1; }
+    .nav-link.active::after { width: 100%; }
+    .nav-link.active { color: white; }
+
+    /* Scroll indicator */
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
+    .scroll-hint { animation: float 2.5s ease-in-out infinite; }
+
+    /* Card interactions */
+    .card-lift { transition: transform 0.3s cubic-bezier(0.22,1,0.36,1), box-shadow 0.3s ease, border-color 0.3s ease; }
+    .card-lift:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+
+    /* Buttons */
+    .btn-primary { transition: transform 0.2s ease, box-shadow 0.3s ease; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,53,0.3); }
+    .btn-ghost { transition: all 0.3s ease; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.5); transform: translateY(-1px); }
+
+    /* Phone mockup */
+    .phone-mockup {
+      position: relative; background: var(--ink); border-radius: 1.5rem; padding: 0.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 0 0 1.5px rgba(255,255,255,0.1);
+      overflow: hidden;
+    }
+    .phone-mockup::before {
+      content: ''; position: absolute; top: 0.5rem; left: 50%; transform: translateX(-50%);
+      width: 3.5rem; height: 0.9rem; border-radius: 1rem; background: #0a0a0f; z-index: 2;
+    }
+    .phone-mockup img { border-radius: 1rem; width: 100%; display: block; }
+
+    /* Terminal frame */
+    .terminal-frame { background: var(--slate); border-radius: 0.75rem; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+    .terminal-bar { background: #252832; padding: 0.5rem 0.875rem; display: flex; align-items: center; gap: 0.375rem; }
+    .terminal-dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; }
+
+    /* Dot grid pattern */
+    .dot-grid {
+      background-image: radial-gradient(circle, rgba(255,107,53,0.08) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    /* FAQ */
+    .faq-item { border-bottom: 1px solid var(--sand); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.22,1,0.36,1), padding 0.3s ease; }
+    .faq-item.open .faq-answer { padding-bottom: 1rem; }
+    .faq-chevron { transition: transform 0.3s ease; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    /* Process timeline */
+    .timeline-line {
+      position: absolute; left: 1.25rem; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(to bottom, var(--ember), var(--mint));
+    }
+
+    /* Bento grid — left: terminal (tall), right: 2 phones stacked */
+    .bento-hero {
+      display: grid; gap: 0.75rem;
+      grid-template-columns: 1.5fr 0.7fr;
+      grid-template-rows: auto auto;
+      overflow: visible;
+      padding-bottom: 0.5rem;
+    }
+    .bento-hero > :first-child { grid-row: 1 / 3; min-height: 0; }
+    .bento-hero .phone-mockup { max-width: 180px; margin: 0 auto; overflow: visible; }
+    .bento-hero .terminal-frame { height: 100%; overflow: hidden; border-radius: 0.5rem; display: flex; flex-direction: column; }
+    .bento-hero .terminal-frame img { flex: 1; width: 100%; object-fit: cover; object-position: top left; min-height: 0; }
+
+    /* Numbers strip counter */
+    .count-up { font-variant-numeric: tabular-nums; }
+
+    /* Hamburger animation */
+    .hamburger span { display: block; width: 1.25rem; height: 2px; background: white; transition: all 0.3s ease; }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+
+    /* Mobile menu */
+    .mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease; opacity: 0; }
+    .mobile-menu.open { max-height: 400px; opacity: 1; }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* Flow diagram connector */
+    .flow-connector { position: relative; }
+    .flow-connector::after {
+      content: ''; position: absolute; top: 50%; right: -1rem; width: 1rem; height: 2px;
+      background: linear-gradient(90deg, var(--ember), var(--mint));
+    }
+    .flow-connector:last-child::after { display: none; }
+
+    @media (max-width: 767px) {
+      .bento-hero { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; }
+      .bento-hero > :first-child { grid-row: auto; }
+      .bento-hero .phone-mockup { max-width: 130px; }
+      .bento-hero .terminal-frame img { max-height: 200px; }
+      .flow-connector::after { display: none; }
+    }
   </style>
 </head>
-<body class="bg-white">
+<body class="bg-paper">
 
-  <!-- HEADER -->
-  <header class="bg-[var(--primary)] text-white">
+  <!-- ===== HEADER ===== -->
+  <header id="siteHeader" class="fixed top-0 w-full z-50 border-b transition-all duration-300 header-transparent">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <span class="font-bold text-lg">S_Web</span>
-      <nav class="hidden md:flex gap-6 text-sm">
-        <a href="#works" class="hover:text-[var(--accent)] transition-colors">制作実績</a>
-        <a href="#service" class="hover:text-[var(--accent)] transition-colors">サービス</a>
-        <a href="#pricing" class="hover:text-[var(--accent)] transition-colors">料金</a>
-        <a href="#contact" class="bg-[var(--accent)] px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">お問い合わせ</a>
+      <a href="#" class="flex items-center gap-2 group">
+        <svg width="28" height="28" viewBox="0 0 100 100" class="shrink-0"><rect width="100" height="100" rx="18" fill="var(--ink)"/><rect x="25" y="20" width="50" height="14" rx="3" fill="var(--ember)"/><rect x="40" y="20" width="14" height="60" rx="3" fill="var(--ember)"/></svg>
+        <span class="font-heading font-black text-lg text-white tracking-wide group-hover:text-ember transition-colors">Tego</span>
+      </a>
+      <nav class="hidden md:flex gap-6 text-sm items-center">
+        <a href="#pain" class="nav-link text-white/50 hover:text-white transition-colors" data-section="pain">課題</a>
+        <a href="#story" class="nav-link text-white/50 hover:text-white transition-colors" data-section="story">ストーリー</a>
+        <a href="#services" class="nav-link text-white/50 hover:text-white transition-colors" data-section="services">サービス</a>
+        <a href="#projects" class="nav-link text-white/50 hover:text-white transition-colors" data-section="projects">実績</a>
+        <a href="#pricing" class="nav-link text-white/50 hover:text-white transition-colors" data-section="pricing">料金</a>
+        <a href="#contact" class="btn-primary bg-ember px-5 py-2 rounded-lg text-white font-bold text-sm">相談する</a>
       </nav>
+      <button id="menuBtn" class="hamburger md:hidden flex flex-col gap-1 p-2" aria-label="メニューを開く" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div id="mobileMenu" class="mobile-menu md:hidden bg-ink border-t border-white/10 px-6">
+      <a href="#pain" class="block py-3 text-sm text-white/60 hover:text-ember transition-colors">課題</a>
+      <a href="#story" class="block py-3 text-sm text-white/60 hover:text-ember transition-colors">ストーリー</a>
+      <a href="#services" class="block py-3 text-sm text-white/60 hover:text-ember transition-colors">サービス</a>
+      <a href="#projects" class="block py-3 text-sm text-white/60 hover:text-ember transition-colors">実績</a>
+      <a href="#pricing" class="block py-3 text-sm text-white/60 hover:text-ember transition-colors">料金</a>
+      <a href="#contact" class="block py-3 text-sm text-ember font-bold">相談する</a>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="bg-[var(--primary)] text-white py-20 md:py-32">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h1 class="text-3xl md:text-5xl font-black mb-6 leading-tight fade-in">
-        伝わる。響く。<br>成果につながるLP制作
-      </h1>
-      <p class="text-lg md:text-xl opacity-80 max-w-2xl mx-auto mb-10 fade-in">
-        レスポンシブ対応・高速表示のランディングページを<br class="hidden md:inline">スピーディーに制作いたします。
-      </p>
-      <div class="flex flex-wrap justify-center gap-4 fade-in">
-        <span class="bg-white/10 px-4 py-2 rounded-full text-sm">HTML / CSS / JS</span>
-        <span class="bg-white/10 px-4 py-2 rounded-full text-sm">レスポンシブ対応</span>
-        <span class="bg-white/10 px-4 py-2 rounded-full text-sm">最短3日納品</span>
-        <span class="bg-white/10 px-4 py-2 rounded-full text-sm">修正対応込み</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- WORKS -->
-  <section id="works" class="py-20 bg-[var(--surface)]">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-2xl md:text-3xl font-black text-center mb-4 fade-in">制作実績</h2>
-      <p class="text-center text-gray-500 mb-12 fade-in">業種に合わせたデザインでお客様のビジネスを支援します</p>
-
-      <div class="grid md:grid-cols-2 gap-8">
-        <!-- Work 1: Salon -->
-        <div class="work-card shadow-lg fade-in">
-          <div class="aspect-video bg-gradient-to-br from-[#b07d62]/20 to-[#d4a574]/20 flex items-center justify-center">
-            <div class="text-center p-8">
-              <div class="w-20 h-20 rounded-full bg-[#b07d62] mx-auto mb-4 flex items-center justify-center">
-                <span class="text-white text-2xl font-bold" style="font-family: 'Noto Serif JP', serif;">B</span>
-              </div>
-              <h3 class="text-xl font-bold text-[#3d2b1f]" style="font-family: 'Noto Serif JP', serif;">Bloom</h3>
-              <p class="text-sm text-[#8b7355]">プライベートサロン</p>
+  <!-- ===== 1. HERO ===== -->
+  <section class="bg-ink relative text-white pt-28 pb-16 md:pt-40 md:pb-28 overflow-hidden dot-grid">
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 50% 70% at 75% 60%, rgba(255,107,53,0.06), transparent), radial-gradient(ellipse 40% 50% at 20% 80%, rgba(45,212,168,0.04), transparent);"></div>
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <div class="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
+        <!-- Left: Text -->
+        <div>
+          <p class="text-ember font-heading font-bold text-xs tracking-[0.25em] uppercase mb-5 gs-hero">AI Automation Engineer</p>
+          <h1 class="font-heading text-4xl md:text-[3.5rem] font-black mb-5 leading-[1.1] gs-hero">
+            サボりたいから、<br><span class="text-ember">考えた。</span>
+          </h1>
+          <p class="text-base md:text-lg text-cloud/70 mb-3 gs-hero leading-relaxed">
+            自分の「めんどくさい」を消すために作ったシステムを、<br class="hidden md:inline">あなたの現場にも。
+          </p>
+          <p class="text-sm text-smoke mb-8 gs-hero leading-relaxed max-w-md">
+            美容サロン・クリニック・介護施設の反復業務をAIで仕組み化。<br>現場を知るエンジニアが、2週間で実動するシステムを構築します。
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3 gs-hero">
+            <a href="#projects" class="btn-ghost border-2 border-white/20 text-white font-bold py-3 px-7 rounded-xl text-center text-sm">
+              実績を見る
+            </a>
+            <a href="#contact" class="btn-primary bg-ember text-white font-bold py-3 px-7 rounded-xl text-center text-sm">
+              無料で相談する
+            </a>
+          </div>
+          <!-- Hero micro-proof strip -->
+          <div class="mt-8 grid grid-cols-3 gap-4 gs-hero">
+            <div class="border-l-2 border-ember/50 pl-3">
+              <p class="text-2xl font-heading font-black text-white leading-none">150<span class="text-ember text-base">+</span></p>
+              <p class="text-[0.65rem] text-smoke mt-1">論文を体系管理</p>
+            </div>
+            <div class="border-l-2 border-ember/50 pl-3">
+              <p class="text-2xl font-heading font-black text-white leading-none">270</p>
+              <p class="text-[0.65rem] text-smoke mt-1">月間SNS投稿</p>
+            </div>
+            <div class="border-l-2 border-mint/50 pl-3">
+              <p class="text-2xl font-heading font-black text-white leading-none">2<span class="text-mint text-base">週間</span></p>
+              <p class="text-[0.65rem] text-smoke mt-1">で3システム構築</p>
             </div>
           </div>
-          <div class="p-6 bg-white">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="bg-[#b07d62]/10 text-[#b07d62] text-xs font-bold px-3 py-1 rounded-full">美容・サロン</span>
-            </div>
-            <h3 class="font-bold text-lg mb-2">Bloom — 美と癒しのプライベートサロン</h3>
-            <p class="text-gray-600 text-sm mb-4">完全予約制のプライベートサロン向けLP。柔らかいセリフ体と暖色系カラーで、癒しと上質感を演出。施術メニュー・お客様の声・アクセス情報を網羅。</p>
-            <div class="flex flex-wrap gap-2 text-xs text-gray-500">
-              <span class="bg-gray-100 px-2 py-1 rounded">レスポンシブ</span>
-              <span class="bg-gray-100 px-2 py-1 rounded">アニメーション</span>
-              <span class="bg-gray-100 px-2 py-1 rounded">Tailwind CSS</span>
-            </div>
+          <div class="mt-5 bg-white/[0.04] border border-white/[0.06] rounded-lg px-4 py-2.5 gs-hero">
+            <p class="text-xs text-cloud/70">すべて<span class="text-ember font-bold">自作・稼働中</span>のシステムです → <a href="#projects" class="text-ember underline underline-offset-2 hover:text-white transition-colors">実績を見る</a></p>
           </div>
         </div>
-
-        <!-- Work 2: Coach -->
-        <div class="work-card shadow-lg fade-in">
-          <div class="aspect-video bg-gradient-to-br from-[#1e3a5f]/20 to-[#c9a84c]/20 flex items-center justify-center">
-            <div class="text-center p-8">
-              <div class="w-20 h-20 rounded-full bg-[#1e3a5f] mx-auto mb-4 flex items-center justify-center">
-                <span class="text-[#c9a84c] text-2xl font-black">Y</span>
-              </div>
-              <h3 class="text-xl font-black text-[#1e3a5f]">山田太郎</h3>
-              <p class="text-sm text-gray-500">ビジネスコーチング</p>
+        <!-- Right: Bento Preview Grid -->
+        <div class="bento-hero gs-bento">
+          <!-- Left: Terminal (tall, spans 2 rows) -->
+          <div class="terminal-frame relative">
+            <div class="terminal-bar">
+              <div class="terminal-dot bg-red-400/80"></div>
+              <div class="terminal-dot bg-yellow-400/80"></div>
+              <div class="terminal-dot bg-green-400/80"></div>
+              <span class="text-[0.65rem] text-smoke ml-1.5">sns_poster.py</span>
             </div>
+            <img src="images/terminal_sns.png" alt="SNS自動投稿CLI" loading="eager" class="w-full">
+            <span class="absolute bottom-2 left-2 bg-mint text-ink text-[0.6rem] font-bold px-2 py-0.5 rounded-full z-10 shadow-lg">月270投稿</span>
           </div>
-          <div class="p-6 bg-white">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="bg-[#1e3a5f]/10 text-[#1e3a5f] text-xs font-bold px-3 py-1 rounded-full">コーチ・コンサル</span>
-            </div>
-            <h3 class="font-bold text-lg mb-2">山田太郎 — ビジネスコーチング</h3>
-            <p class="text-gray-600 text-sm mb-4">経営者向けコーチング事業のLP。紺×金のカラーで権威性と信頼感を演出。料金プラン3段、実績数値、ご利用の流れを構成。</p>
-            <div class="flex flex-wrap gap-2 text-xs text-gray-500">
-              <span class="bg-gray-100 px-2 py-1 rounded">レスポンシブ</span>
-              <span class="bg-gray-100 px-2 py-1 rounded">料金表</span>
-              <span class="bg-gray-100 px-2 py-1 rounded">統計カウンター</span>
-            </div>
+          <!-- Right: 2 phones stacked -->
+          <div class="phone-mockup relative">
+            <img src="images/paper_dashboard.jpg" alt="論文管理アプリ ダッシュボード" loading="eager">
+            <span class="absolute -top-2 -right-2 bg-ember text-white text-[0.6rem] font-bold px-2 py-0.5 rounded-full z-10 shadow-lg">150+論文</span>
+          </div>
+          <div class="phone-mockup relative">
+            <img src="images/paper_library.jpg" alt="論文ライブラリ" loading="eager">
+            <span class="absolute bottom-2 right-2 bg-ember/80 text-white text-[0.6rem] font-bold px-2 py-0.5 rounded-full z-10 shadow-lg">AIチャット</span>
           </div>
         </div>
       </div>
     </div>
+    <div class="text-center mt-12 scroll-hint text-white/10">
+      <svg class="w-5 h-5 mx-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+    </div>
   </section>
 
-  <!-- SERVICE -->
-  <section id="service" class="py-20">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-2xl md:text-3xl font-black text-center mb-4 fade-in">サービスの特徴</h2>
-      <p class="text-center text-gray-500 mb-12 fade-in">なぜお客様に選んでいただけるのか</p>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="text-center fade-in">
-          <div class="w-16 h-16 rounded-2xl bg-[var(--accent)]/10 mx-auto mb-4 flex items-center justify-center text-[var(--accent)] text-2xl font-bold">01</div>
-          <h3 class="font-bold text-lg mb-2">スピード納品</h3>
-          <p class="text-gray-600 text-sm">最短3日で納品可能。お急ぎの方にも柔軟に対応いたします。</p>
+  <!-- ===== 2. NUMBERS STRIP ===== -->
+  <section class="bg-gradient-to-b from-ink to-slate py-14 md:py-16 border-t border-white/5">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        <div class="gs-num bg-white/[0.04] border border-white/[0.06] rounded-2xl p-5 md:p-6 text-center hover:bg-white/[0.07] transition-colors">
+          <p class="text-4xl md:text-5xl font-heading font-black text-ember leading-none mb-2"><span class="count-up" data-target="150">0</span><span class="text-2xl md:text-3xl">+</span></p>
+          <p class="text-xs md:text-sm text-cloud/60">論文を体系管理</p>
         </div>
-        <div class="text-center fade-in">
-          <div class="w-16 h-16 rounded-2xl bg-[var(--accent)]/10 mx-auto mb-4 flex items-center justify-center text-[var(--accent)] text-2xl font-bold">02</div>
-          <h3 class="font-bold text-lg mb-2">レスポンシブ標準</h3>
-          <p class="text-gray-600 text-sm">スマホ・タブレット・PCすべてに最適化。Lighthouse 90+の高品質を保証。</p>
+        <div class="gs-num bg-white/[0.04] border border-white/[0.06] rounded-2xl p-5 md:p-6 text-center hover:bg-white/[0.07] transition-colors">
+          <p class="text-4xl md:text-5xl font-heading font-black text-ember leading-none mb-2"><span class="count-up" data-target="270">0</span></p>
+          <p class="text-xs md:text-sm text-cloud/60">月間SNS投稿を自動化</p>
         </div>
-        <div class="text-center fade-in">
-          <div class="w-16 h-16 rounded-2xl bg-[var(--accent)]/10 mx-auto mb-4 flex items-center justify-center text-[var(--accent)] text-2xl font-bold">03</div>
-          <h3 class="font-bold text-lg mb-2">修正対応込み</h3>
-          <p class="text-gray-600 text-sm">テキスト・画像・カラー変更の修正を無料で対応。安心してご依頼ください。</p>
+        <div class="gs-num bg-white/[0.04] border border-white/[0.06] rounded-2xl p-5 md:p-6 text-center hover:bg-white/[0.07] transition-colors">
+          <p class="text-4xl md:text-5xl font-heading font-black text-ember leading-none mb-2"><span class="count-up" data-target="60">0</span><span class="text-2xl md:text-3xl">分</span></p>
+          <p class="text-xs md:text-sm text-cloud/60">でLP構築</p>
+        </div>
+        <div class="gs-num bg-white/[0.04] border border-white/[0.06] rounded-2xl p-5 md:p-6 text-center hover:bg-white/[0.07] transition-colors">
+          <p class="text-4xl md:text-5xl font-heading font-black text-ember leading-none mb-2"><span class="count-up" data-target="2">0</span><span class="text-2xl md:text-3xl">週間</span></p>
+          <p class="text-xs md:text-sm text-cloud/60">で3システム構築</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PRICING -->
-  <section id="pricing" class="py-20 bg-[var(--surface)]">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-2xl md:text-3xl font-black text-center mb-4 fade-in">料金プラン</h2>
-      <p class="text-center text-gray-500 mb-12 fade-in">ご予算・ご要望に合わせてお選びください</p>
+  <!-- ===== 3. PAIN POINTS ===== -->
+  <section id="pain" class="py-20 md:py-28 bg-paper relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-72 h-72 rounded-full bg-ember/[0.03] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-56 h-56 rounded-full bg-mint/[0.04] translate-y-1/3 -translate-x-1/4 pointer-events-none"></div>
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <p class="text-ember font-heading font-bold text-xs tracking-[0.2em] text-center mb-3">PAIN POINTS</p>
+      <h2 class="font-heading text-2xl md:text-3xl font-black text-center mb-3">こんな<span class="text-ember">「めんどくさい」</span>、<br class="md:hidden">ありませんか？</h2>
+      <p class="text-center text-smoke mb-4 text-sm">毎日の業務に潜む、仕組みで消せるムダ</p>
+      <p class="text-center mb-14"><span class="inline-block bg-ember/10 text-ember text-sm font-bold px-4 py-1.5 rounded-full">→ すべてAIで仕組み化できます</span></p>
 
-      <div class="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-        <div class="bg-white rounded-2xl shadow-lg p-8 fade-in">
-          <p class="text-[var(--accent)] font-bold text-sm mb-2">LIGHT</p>
-          <h3 class="text-2xl font-black mb-1">ライトプラン</h3>
-          <p class="text-4xl font-black text-[var(--primary)] mb-4">¥10,000</p>
-          <ul class="space-y-3 text-sm text-gray-600 mb-6">
-            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> レスポンシブ対応LP 1ページ</li>
-            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> テンプレートベースデザイン</li>
-            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> 修正2回まで無料</li>
-            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> 納期: 3日</li>
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Beauty Salon -->
+        <div class="bg-white rounded-2xl p-7 border-t-4 border-t-ember border border-sand/60 card-lift gs-pain">
+          <div class="w-11 h-11 rounded-xl bg-ember/10 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-ember" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z"/></svg>
+          </div>
+          <h3 class="font-heading font-bold text-base mb-4">美容サロン</h3>
+          <ul class="space-y-3 text-sm text-smoke leading-relaxed">
+            <li class="flex gap-2.5"><svg class="w-4 h-4 text-ember/60 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>予約リマインドを毎回手動で送信</li>
+            <li class="flex gap-2.5"><svg class="w-4 h-4 text-ember/60 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>施術後フォローが属人化、漏れる</li>
+            <li class="flex gap-2.5"><svg class="w-4 h-4 text-ember/60 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>SNS投稿を毎日考えるのが続かない</li>
           </ul>
-          <a href="#contact" class="block text-center bg-[var(--primary)] text-white py-3 rounded-lg font-bold hover:opacity-90 transition-opacity">このプランで相談</a>
+          <div class="mt-5 bg-gradient-to-r from-mint/10 to-mint/5 rounded-xl px-4 py-3 text-sm text-mint font-bold flex items-center gap-2 border border-mint/15">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            予約・フォロー・SNSを自動化で回す
+          </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-lg p-8 border-2 border-[var(--accent)] relative fade-in">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--accent)] text-white text-xs font-bold px-4 py-1 rounded-full">おすすめ</div>
-          <p class="text-[var(--accent)] font-bold text-sm mb-2">STANDARD</p>
-          <h3 class="text-2xl font-black mb-1">スタンダードプラン</h3>
-          <p class="text-4xl font-black text-[var(--primary)] mb-4">¥15,000</p>
-          <ul class="space-y-3 text-sm text-gray-600 mb-6">
-            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> レスポンシブ対応LP 1ページ</li>
-            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> カスタムレイアウト・配色</li>
-            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> 修正3回まで無料</li>
-            <li class="flex items-start gap-2"><span class="text-[var(--accent)]">&#10003;</span> 納期: 5日</li>
+        <!-- Clinic -->
+        <div class="bg-white rounded-2xl p-7 border-t-4 border-t-blue-400 border border-sand/60 card-lift gs-pain">
+          <div class="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>
+          </div>
+          <h3 class="font-heading font-bold text-base mb-4">クリニック</h3>
+          <ul class="space-y-3 text-sm text-smoke leading-relaxed">
+            <li class="flex gap-2.5"><svg class="w-4 h-4 text-blue-400/60 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>問診票の手入力で受付が回らない</li>
+            <li class="flex gap-2.5"><svg class="w-4 h-4 text-blue-400/60 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>リコール（再来院案内）が漏れる</li>
+            <li class="flex gap-2.5"><svg class="w-4 h-4 text-blue-400/60 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>患者向け情報発信が止まっている</li>
           </ul>
-          <a href="#contact" class="block text-center bg-[var(--accent)] text-white py-3 rounded-lg font-bold hover:opacity-90 transition-opacity">このプランで相談</a>
+          <div class="mt-5 bg-gradient-to-r from-mint/10 to-mint/5 rounded-xl px-4 py-3 text-sm text-mint font-bold flex items-center gap-2 border border-mint/15">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            受付・案内・発信を仕組みで自動化
+          </div>
+        </div>
+
+        <!-- Care Facility -->
+        <div class="bg-white rounded-2xl p-7 border-t-4 border-t-mint border border-sand/60 card-lift gs-pain">
+          <div class="w-11 h-11 rounded-xl bg-mint/10 flex items-center justify-center mb-5">
+            <svg class="w-5 h-5 text-mint" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"/></svg>
+          </div>
+          <h3 class="font-heading font-bold text-base mb-4">介護施設</h3>
+          <ul class="space-y-3 text-sm text-smoke leading-relaxed">
+            <li class="flex gap-2.5"><svg class="w-4 h-4 text-mint/60 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>日報・記録の転記作業で残業</li>
+            <li class="flex gap-2.5"><svg class="w-4 h-4 text-mint/60 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>シフト調整の電話ラリーが終わらない</li>
+            <li class="flex gap-2.5"><svg class="w-4 h-4 text-mint/60 mt-0.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>ご家族への報告が手書き・手渡し</li>
+          </ul>
+          <div class="mt-5 bg-gradient-to-r from-mint/10 to-mint/5 rounded-xl px-4 py-3 text-sm text-mint font-bold flex items-center gap-2 border border-mint/15">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            記録・連絡・シフトを仕組みに変える
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 4. STORY (Terminal Narrative) ===== -->
+  <section id="story" class="py-20 md:py-28 bg-ink text-white relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 60% 50% at 80% 40%, rgba(45,212,168,0.05), transparent);"></div>
+    <div class="absolute inset-0 pointer-events-none dot-grid" style="opacity:0.15;"></div>
+    <div class="max-w-4xl mx-auto px-6 relative z-10">
+      <p class="text-ember font-heading font-bold text-xs tracking-[0.2em] text-center mb-3">MY STORY</p>
+      <h2 class="font-heading text-2xl md:text-4xl font-black text-center mb-4 leading-tight">「仕組みで回す」を、<br class="md:hidden"><span class="text-mint">体で知っている</span></h2>
+      <p class="text-center text-cloud/50 mb-12 text-sm md:text-base">現場の管理職が、AI × 科学的思考で武装した話</p>
+
+      <div class="terminal-frame max-w-3xl mx-auto" style="box-shadow: 0 12px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);">
+        <div class="terminal-bar">
+          <div class="terminal-dot bg-red-400/80"></div>
+          <div class="terminal-dot bg-yellow-400/80"></div>
+          <div class="terminal-dot bg-green-400/80"></div>
+          <span class="text-xs text-smoke ml-2">tego@portfolio:~$ cat story.md</span>
+        </div>
+        <div class="p-6 md:p-10 space-y-0">
+          <div class="gs-story flex gap-5 py-6 border-b border-white/5">
+            <div class="shrink-0 w-10 h-10 rounded-xl bg-ember/15 flex items-center justify-center text-ember font-heading font-black text-base mt-0.5">1</div>
+            <div>
+              <p class="text-white font-heading font-bold text-base md:text-lg mb-2.5">店舗ビジネスを「仕組み」で立て直した</p>
+              <p class="text-cloud/70 text-sm md:text-base leading-relaxed">
+                管理職として戦略立案・実績管理・投資判断を一手に担い、<span class="bg-ember/15 text-ember px-1.5 py-0.5 rounded font-bold">県内トップの実績</span>を出した。現場の「何がボトルネックか」を体で知っている。
+              </p>
+              <div class="flex flex-wrap gap-2 mt-3.5">
+                <span class="text-xs bg-ember/10 text-ember/80 px-2.5 py-1 rounded-md">戦略立案</span>
+                <span class="text-xs bg-ember/10 text-ember/80 px-2.5 py-1 rounded-md">実績管理</span>
+                <span class="text-xs bg-ember/10 text-ember/80 px-2.5 py-1 rounded-md">県内1位</span>
+              </div>
+            </div>
+          </div>
+          <div class="gs-story flex gap-5 py-6 border-b border-white/5">
+            <div class="shrink-0 w-10 h-10 rounded-xl bg-mint/15 flex items-center justify-center text-mint font-heading font-black text-base mt-0.5">2</div>
+            <div>
+              <p class="text-white font-heading font-bold text-base md:text-lg mb-2.5">150本の論文 + AIで、自分をアップデートした</p>
+              <p class="text-cloud/70 text-sm md:text-base leading-relaxed">
+                科学論文<span class="bg-mint/15 text-mint px-1.5 py-0.5 rounded font-bold">150本+</span>を体系化して学習プロセスを最適化。Claude Code に出会い、<span class="bg-mint/15 text-mint px-1.5 py-0.5 rounded font-bold">2週間で3システム構築。</span>
+              </p>
+              <div class="flex flex-wrap gap-2 mt-3.5">
+                <span class="text-xs bg-mint/10 text-mint/80 px-2.5 py-1 rounded-md">論文150+</span>
+                <span class="text-xs bg-mint/10 text-mint/80 px-2.5 py-1 rounded-md">Claude Code</span>
+                <span class="text-xs bg-mint/10 text-mint/80 px-2.5 py-1 rounded-md">2週間</span>
+              </div>
+            </div>
+          </div>
+          <div class="gs-story flex gap-5 py-6">
+            <div class="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-ember/20 to-mint/20 flex items-center justify-center font-heading font-black text-base mt-0.5" style="color: #ff9a65;">3</div>
+            <div>
+              <p class="text-white font-heading font-bold text-base md:text-lg mb-2.5">だから、あなたの「現場のめんどくさい」がわかる</p>
+              <p class="text-cloud/70 text-sm md:text-base leading-relaxed">
+                技術者に業務を一から説明する必要はありません。<span class="text-white font-bold">現場の人間がAI自動化の力を持っている。</span>「ビジネス課題 → 技術的解決」の翻訳コストがゼロ。
+              </p>
+              <div class="mt-4 bg-gradient-to-r from-ember/10 to-mint/10 border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-ember font-bold">
+                現場経験 + AI技術力 = あなたの業務改善に直結
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 5. SERVICES ===== -->
+  <section id="services" class="py-20 md:py-28 bg-paper relative overflow-hidden">
+    <div class="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-ember/[0.02] translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <p class="text-ember font-heading font-bold text-xs tracking-[0.2em] text-center mb-3">SERVICES</p>
+      <h2 class="font-heading text-2xl md:text-3xl font-black text-center mb-3"><span class="text-ember">「めんどくさい」を消す</span>、<br class="md:hidden">3つの手段</h2>
+      <p class="text-center text-smoke mb-14 text-sm">あなたの業種に合わせて最適な手段を提案します</p>
+
+      <!-- Hero card: AI Automation -->
+      <div class="relative bg-gradient-to-br from-ink to-slate rounded-2xl p-7 md:p-9 mb-6 card-lift gs-svc text-white overflow-hidden">
+        <div class="absolute top-0 right-0 w-48 h-48 rounded-full bg-ember/10 -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-32 h-32 rounded-full bg-mint/8 translate-y-1/2 -translate-x-1/4 pointer-events-none"></div>
+        <div class="grid md:grid-cols-[auto_1fr] gap-6 items-start relative z-10">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-ember to-orange-400 flex items-center justify-center text-white shrink-0 shadow-lg shadow-ember/20">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-3 mb-2">
+              <h3 class="font-heading font-bold text-xl">AI自動化・業務効率化</h3>
+              <span class="bg-ember text-white text-[0.6rem] font-bold px-2.5 py-0.5 rounded-full tracking-wider">MAIN</span>
+            </div>
+            <p class="text-cloud/70 text-sm mb-5 leading-relaxed max-w-xl">
+              繰り返しの業務をAIで仕組み化。予約管理、顧客フォロー、SNS運用、日報作成 ── 「人がやらなくていいこと」を見つけ出し、自動で回す。
+            </p>
+            <p class="bg-ember/20 border border-ember/30 rounded-lg px-4 py-2.5 text-sm text-white font-bold mb-5">
+              まず1つの業務を<span class="text-ember">無料で</span>自動化します
+            </p>
+            <div class="flex flex-wrap gap-1.5 text-xs">
+              <span class="bg-white/10 text-ember px-2.5 py-1 rounded-md font-medium">Python</span>
+              <span class="bg-white/10 text-ember px-2.5 py-1 rounded-md font-medium">Claude AI</span>
+              <span class="bg-white/10 text-ember px-2.5 py-1 rounded-md font-medium">GitHub Actions</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="text-center mt-8 text-sm text-gray-500 fade-in">
-        <p>オプション: 追加セクション +¥3,000 / フォーム設置 +¥5,000 / 追加修正 +¥2,000/回</p>
+      <!-- 3 compact service cards -->
+      <div class="grid md:grid-cols-3 gap-5">
+        <div class="bg-white rounded-2xl border border-sand/60 p-6 card-lift gs-svc">
+          <div class="w-10 h-10 rounded-xl bg-slate/5 flex items-center justify-center text-smoke mb-4">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg>
+          </div>
+          <h3 class="font-heading font-bold text-base mb-2">アプリ開発</h3>
+          <p class="text-smoke text-sm leading-relaxed mb-4">モバイル/Webアプリの企画・設計・開発。現場が本当に必要なアプリを形に。</p>
+          <div class="flex flex-wrap gap-1.5 text-xs">
+            <span class="bg-paper text-smoke px-2.5 py-1 rounded-md">React Native</span>
+            <span class="bg-paper text-smoke px-2.5 py-1 rounded-md">TypeScript</span>
+            <span class="bg-paper text-smoke px-2.5 py-1 rounded-md">Firebase</span>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-sand/60 p-6 card-lift gs-svc">
+          <div class="w-10 h-10 rounded-xl bg-slate/5 flex items-center justify-center text-smoke mb-4">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25A2.25 2.25 0 015.25 3h13.5A2.25 2.25 0 0121 5.25z"/></svg>
+          </div>
+          <h3 class="font-heading font-bold text-base mb-2">LP制作</h3>
+          <p class="text-smoke text-sm leading-relaxed mb-4">AI × テンプレートで通常2〜3日のLP制作を<strong class="text-ink">60分に圧縮</strong>。</p>
+          <div class="flex flex-wrap gap-1.5 text-xs">
+            <span class="bg-paper text-smoke px-2.5 py-1 rounded-md">HTML/CSS</span>
+            <span class="bg-paper text-smoke px-2.5 py-1 rounded-md">Tailwind CSS</span>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-sand/60 p-6 card-lift gs-svc">
+          <div class="w-10 h-10 rounded-xl bg-mint/10 flex items-center justify-center text-mint mb-4">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/></svg>
+          </div>
+          <h3 class="font-heading font-bold text-base mb-2">AI導入支援・研修</h3>
+          <p class="text-smoke text-sm leading-relaxed mb-4">非エンジニアがAIを使いこなすまでのロードマップ設計。</p>
+          <div class="flex flex-wrap gap-1.5 text-xs">
+            <span class="bg-paper text-smoke px-2.5 py-1 rounded-md">ワークショップ</span>
+            <span class="bg-paper text-smoke px-2.5 py-1 rounded-md">実践型</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA / CONTACT -->
-  <section id="contact" class="py-20 bg-[var(--primary)] text-white">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-4xl font-black mb-6 fade-in">まずはお気軽にご相談ください</h2>
-      <p class="text-lg opacity-80 max-w-xl mx-auto mb-10 fade-in">
-        ご要望をお聞かせいただければ、最適なプランをご提案いたします。<br>お見積りは無料です。
+  <!-- ===== 6. PROJECTS ===== -->
+  <section id="projects" class="py-20 md:py-32 bg-white relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 50% 40% at 20% 30%, rgba(255,107,53,0.03), transparent), radial-gradient(ellipse 50% 40% at 80% 70%, rgba(45,212,168,0.03), transparent);"></div>
+    <div class="max-w-6xl mx-auto px-6 relative z-10">
+      <p class="text-ember font-heading font-bold text-xs tracking-[0.2em] text-center mb-3">PROJECTS</p>
+      <h2 class="font-heading text-2xl md:text-3xl font-black text-center mb-3">すべて、<span class="text-ember">サボるために</span>作った</h2>
+      <p class="text-center mb-16"><span class="inline-block bg-ink/5 text-ink text-sm font-bold px-4 py-1.5 rounded-full border border-ink/10">全部、自分で使っているものです。</span></p>
+
+      <!-- Project 1: Content Pipeline -->
+      <div class="mb-24 gs-proj">
+        <div class="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
+          <div class="order-2 md:order-1">
+            <!-- Flow Diagram -->
+            <div class="flex flex-wrap md:flex-nowrap items-center justify-center gap-3 md:gap-0 mb-6">
+              <div class="flow-connector text-center px-3 py-2">
+                <div class="w-10 h-10 rounded-lg bg-ember/10 flex items-center justify-center mx-auto mb-1">
+                  <svg class="w-4 h-4 text-ember" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+                </div>
+                <p class="text-[0.6rem] text-smoke">論文検索</p>
+              </div>
+              <div class="flow-connector text-center px-3 py-2">
+                <div class="w-10 h-10 rounded-lg bg-ember/10 flex items-center justify-center mx-auto mb-1">
+                  <svg class="w-4 h-4 text-ember" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"/></svg>
+                </div>
+                <p class="text-[0.6rem] text-smoke">記事生成</p>
+              </div>
+              <div class="flow-connector text-center px-3 py-2">
+                <div class="w-10 h-10 rounded-lg bg-ember/10 flex items-center justify-center mx-auto mb-1">
+                  <svg class="w-4 h-4 text-ember" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5"/></svg>
+                </div>
+                <p class="text-[0.6rem] text-smoke">Note公開</p>
+              </div>
+              <div class="flow-connector text-center px-3 py-2">
+                <div class="w-10 h-10 rounded-lg bg-mint/10 flex items-center justify-center mx-auto mb-1">
+                  <svg class="w-4 h-4 text-mint" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"/></svg>
+                </div>
+                <p class="text-[0.6rem] text-smoke">SNS投稿</p>
+              </div>
+              <div class="text-center px-3 py-2">
+                <div class="w-10 h-10 rounded-lg bg-mint/10 flex items-center justify-center mx-auto mb-1">
+                  <svg class="w-4 h-4 text-mint" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+                </div>
+                <p class="text-[0.6rem] text-smoke">分析</p>
+              </div>
+            </div>
+            <!-- Terminal screenshot -->
+            <div class="terminal-frame max-w-sm mx-auto">
+              <div class="terminal-bar">
+                <div class="terminal-dot bg-red-400/80"></div>
+                <div class="terminal-dot bg-yellow-400/80"></div>
+                <div class="terminal-dot bg-green-400/80"></div>
+                <span class="text-[0.65rem] text-smoke ml-1.5">sns_poster.py — dry-run</span>
+              </div>
+              <img src="images/SNS_Dry_Run.png" alt="SNS自動投稿CLI実行画面" class="w-full" loading="lazy">
+            </div>
+          </div>
+          <div class="order-1 md:order-2">
+            <p class="text-ember text-xs font-heading font-bold tracking-[0.15em] mb-2">MAIN PROJECT</p>
+            <h3 class="font-heading text-xl md:text-2xl font-black mb-3">コンテンツ自動化パイプライン</h3>
+            <p class="text-smoke text-sm mb-6 leading-relaxed">
+              論文検索 → 記事執筆 → 画像生成 → Note公開 → SNS 3媒体×朝昼夜投稿 → 分析。<span class="inline-block bg-ember/10 text-ember font-bold px-2 py-0.5 rounded mt-1">月270投稿が完全無人で回る</span>
+            </p>
+            <div class="grid grid-cols-3 gap-3 mb-6">
+              <div class="text-center py-3 bg-paper rounded-xl">
+                <p class="text-2xl font-heading font-black text-ember leading-none count-up" data-target="10">0</p>
+                <p class="text-[0.65rem] text-smoke mt-1">万字 半自動生成</p>
+              </div>
+              <div class="text-center py-3 bg-paper rounded-xl">
+                <p class="text-2xl font-heading font-black text-ember leading-none count-up" data-target="270">0</p>
+                <p class="text-[0.65rem] text-smoke mt-1">月間投稿</p>
+              </div>
+              <div class="text-center py-3 bg-paper rounded-xl">
+                <p class="text-2xl font-heading font-black text-ember leading-none"><span class="count-up" data-target="2">0</span><span class="text-sm">週間</span></p>
+                <p class="text-[0.65rem] text-smoke mt-1">構築期間</p>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-1.5 text-xs">
+              <span class="bg-ember/8 text-ember px-2.5 py-1 rounded-md">Python</span>
+              <span class="bg-ember/8 text-ember px-2.5 py-1 rounded-md">Claude AI</span>
+              <span class="bg-ember/8 text-ember px-2.5 py-1 rounded-md">GitHub Actions</span>
+              <span class="bg-ember/8 text-ember px-2.5 py-1 rounded-md">Playwright</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2: Paper Management App — Bento Grid -->
+      <div class="mb-24 gs-proj">
+        <div class="grid md:grid-cols-2 gap-10 md:gap-14 items-center">
+          <div>
+            <p class="text-mint text-xs font-heading font-bold tracking-[0.15em] mb-2">WEB APPLICATION</p>
+            <h3 class="font-heading text-xl md:text-2xl font-black mb-3">論文管理Webアプリ</h3>
+            <p class="text-smoke text-sm mb-6 leading-relaxed">
+              論文を読んでもすぐ忘れる → <strong class="text-ink">AIに質問しながら復習し、科学的な間隔で記憶を定着</strong>させる仕組み。PDFビューワー + AIチャット + 間隔反復テスト。
+            </p>
+            <div class="grid grid-cols-2 gap-3 mb-6">
+              <div class="bg-red-50 rounded-xl p-3.5">
+                <p class="text-xs font-bold text-red-600 mb-1">Before</p>
+                <p class="text-xs text-red-500/80">読んでもすぐ忘れる。PDF管理もバラバラ。</p>
+              </div>
+              <div class="bg-green-50 rounded-xl p-3.5">
+                <p class="text-xs font-bold text-green-600 mb-1">After</p>
+                <p class="text-xs text-green-500/80">AIで復習。間隔反復で定着。一元管理。</p>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-1.5 text-xs">
+              <span class="bg-paper text-smoke px-2.5 py-1 rounded-md">FastAPI</span>
+              <span class="bg-paper text-smoke px-2.5 py-1 rounded-md">Gemini AI</span>
+              <span class="bg-paper text-smoke px-2.5 py-1 rounded-md">SQLite</span>
+              <span class="bg-paper text-smoke px-2.5 py-1 rounded-md">PWA</span>
+            </div>
+          </div>
+          <!-- App Screenshots — horizontal scroll on mobile, grid on desktop -->
+          <div class="flex gap-3 overflow-x-auto pb-4 md:grid md:grid-cols-3 md:overflow-visible md:pb-0 snap-x snap-mandatory" style="-webkit-overflow-scrolling: touch;">
+            <div class="phone-mockup relative shrink-0 w-[140px] md:w-auto snap-center">
+              <img src="images/paper_dashboard.jpg" alt="ダッシュボード" loading="lazy">
+              <span class="absolute top-3 right-2 bg-ember/90 text-white text-[0.55rem] px-1.5 py-0.5 rounded z-10">ホーム</span>
+            </div>
+            <div class="phone-mockup relative shrink-0 w-[140px] md:w-auto snap-center">
+              <img src="images/paper_library.jpg" alt="論文ライブラリ" loading="lazy">
+              <span class="absolute bottom-2 left-2 bg-mint/90 text-ink text-[0.55rem] px-1.5 py-0.5 rounded z-10">検索</span>
+            </div>
+            <div class="phone-mockup relative shrink-0 w-[140px] md:w-auto snap-center">
+              <img src="images/paper_chat.jpg" alt="AIチャット" loading="lazy">
+              <span class="absolute bottom-2 left-2 bg-ember/90 text-white text-[0.55rem] px-1.5 py-0.5 rounded z-10">AIチャット</span>
+            </div>
+            <div class="phone-mockup relative shrink-0 w-[140px] md:w-auto snap-center">
+              <img src="images/paper_recall_top.jpg" alt="想起テスト" loading="lazy">
+              <span class="absolute bottom-2 left-2 bg-mint/90 text-ink text-[0.55rem] px-1.5 py-0.5 rounded z-10">間隔反復</span>
+            </div>
+            <div class="phone-mockup relative shrink-0 w-[140px] md:w-auto snap-center">
+              <img src="images/paper_detail.jpg" alt="論文詳細" loading="lazy">
+              <span class="absolute bottom-2 left-2 bg-ember/90 text-white text-[0.55rem] px-1.5 py-0.5 rounded z-10">論文詳細</span>
+            </div>
+            <div class="phone-mockup relative shrink-0 w-[140px] md:w-auto snap-center">
+              <img src="images/paper_recall_bottom.jpg" alt="想起テスト結果" loading="lazy">
+              <span class="absolute bottom-2 left-2 bg-mint/90 text-ink text-[0.55rem] px-1.5 py-0.5 rounded z-10">テスト結果</span>
+            </div>
+          </div>
+          <p class="text-[0.6rem] text-smoke mt-2 text-center md:hidden">← スワイプで全画面を確認 →</p>
+        </div>
+      </div>
+
+      <!-- Project 3: LP Factory -->
+      <div class="bg-paper rounded-2xl border border-sand/60 p-6 md:p-8 max-w-3xl mx-auto card-lift gs-proj">
+        <div class="flex flex-col md:flex-row md:items-center gap-5 md:gap-8">
+          <div class="flex-1">
+            <p class="text-smoke text-xs font-heading font-bold tracking-[0.15em] mb-1.5">AI AUTOMATION DEMO</p>
+            <h3 class="font-heading text-lg font-bold mb-2">LP制作ファクトリー</h3>
+            <p class="text-smoke text-sm leading-relaxed">
+              テンプレート × Claude Code スキルで、LP制作を<strong class="text-ink">60分に圧縮</strong>。美容サロン・コーチング向けテンプレート実装済み。
+            </p>
+          </div>
+          <div class="flex items-center gap-2.5 shrink-0">
+            <span class="bg-red-50 text-red-500 text-sm px-3.5 py-2 rounded-lg">2〜3日</span>
+            <svg class="w-5 h-5 text-ember" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            <span class="bg-green-50 text-green-600 text-sm font-bold px-3.5 py-2 rounded-lg">60分</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 7. PROCESS (Vertical Timeline) ===== -->
+  <section class="py-20 md:py-28 relative overflow-hidden" style="background-color: #f0efeb;">
+    <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle, rgba(0,0,0,0.02) 1px, transparent 1px); background-size: 20px 20px;"></div>
+    <div class="max-w-3xl mx-auto px-6 relative z-10">
+      <p class="text-ember font-heading font-bold text-xs tracking-[0.2em] text-center mb-3">PROCESS</p>
+      <h2 class="font-heading text-2xl md:text-3xl font-black text-center mb-3">ご依頼の流れ</h2>
+      <p class="text-center text-smoke mb-14 text-sm">専門用語は使いません。現場の言葉で話します。</p>
+
+      <div class="relative pl-12 md:pl-16">
+        <div class="timeline-line"></div>
+
+        <div class="mb-10 relative gs-process">
+          <div class="absolute -left-12 md:-left-16 w-10 h-10 rounded-full bg-ember text-white flex items-center justify-center font-heading font-black text-sm">1</div>
+          <div class="bg-white rounded-xl border border-sand/60 p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-1">
+              <h4 class="font-heading font-bold text-sm">ヒアリング</h4>
+              <span class="text-[0.65rem] text-ember bg-ember/8 px-2 py-0.5 rounded">Day 0</span>
+            </div>
+            <p class="text-xs text-smoke">DMかフォームでお気軽にどうぞ。「こんなこと自動化できる？」でOK。</p>
+          </div>
+        </div>
+
+        <div class="mb-10 relative gs-process">
+          <div class="absolute -left-12 md:-left-16 w-10 h-10 rounded-full bg-ember/80 text-white flex items-center justify-center font-heading font-black text-sm">2</div>
+          <div class="bg-white rounded-xl border border-sand/60 p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-1">
+              <h4 class="font-heading font-bold text-sm">課題整理</h4>
+              <span class="text-[0.65rem] text-ember bg-ember/8 px-2 py-0.5 rounded">Day 1-2</span>
+            </div>
+            <p class="text-xs text-smoke">何を自動化すべきか一緒に洗い出し。優先順位を決めます。</p>
+          </div>
+        </div>
+
+        <div class="mb-10 relative gs-process">
+          <div class="absolute -left-12 md:-left-16 w-10 h-10 rounded-full bg-ember/60 text-white flex items-center justify-center font-heading font-black text-sm">3</div>
+          <div class="bg-white rounded-xl border border-sand/60 p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-1">
+              <h4 class="font-heading font-bold text-sm">構築</h4>
+              <span class="text-[0.65rem] text-smoke bg-sand/60 px-2 py-0.5 rounded">Day 3-7</span>
+            </div>
+            <p class="text-xs text-smoke">設計 → 開発 → テスト。進捗はこまめに共有します。</p>
+          </div>
+        </div>
+
+        <div class="mb-10 relative gs-process">
+          <div class="absolute -left-12 md:-left-16 w-10 h-10 rounded-full bg-mint/80 text-ink flex items-center justify-center font-heading font-black text-sm">4</div>
+          <div class="bg-white rounded-xl border border-sand/60 p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-1">
+              <h4 class="font-heading font-bold text-sm">テスト運用</h4>
+              <span class="text-[0.65rem] text-mint bg-mint/10 px-2 py-0.5 rounded">Day 8-12</span>
+            </div>
+            <p class="text-xs text-smoke">実環境で動かして微調整。フィードバックを反映します。</p>
+          </div>
+        </div>
+
+        <div class="relative gs-process">
+          <div class="absolute -left-12 md:-left-16 w-10 h-10 rounded-full bg-mint text-ink flex items-center justify-center font-heading font-black text-sm">5</div>
+          <div class="bg-white rounded-xl border border-sand/60 p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-1">
+              <h4 class="font-heading font-bold text-sm">納品・サポート</h4>
+              <span class="text-[0.65rem] text-mint bg-mint/10 px-2 py-0.5 rounded">Day 14</span>
+            </div>
+            <p class="text-xs text-smoke">引き渡し + 運用マニュアル。「作って終わり」にはしません。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 8. PRICING ===== -->
+  <section id="pricing" class="py-20 md:py-28 bg-paper">
+    <div class="max-w-5xl mx-auto px-6">
+      <p class="text-ember font-heading font-bold text-xs tracking-[0.2em] text-center mb-3">PRICING</p>
+      <h2 class="font-heading text-2xl md:text-3xl font-black text-center mb-3">料金</h2>
+      <p class="text-center text-smoke mb-14 text-sm">まずは無料トライアルから。効果を見てから正式依頼。</p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- AI Automation (highlighted, spans 2 cols on md) -->
+        <div class="md:col-span-2 lg:col-span-1 bg-gradient-to-br from-ink to-slate rounded-2xl p-6 pb-8 text-white card-lift relative overflow-hidden gs-price" style="box-shadow: 0 8px 32px rgba(255,107,53,0.15);">
+          <div class="absolute top-0 right-0 w-40 h-40 rounded-full bg-ember/10 -translate-y-1/2 translate-x-1/2"></div>
+          <div class="absolute bottom-0 left-0 w-24 h-24 rounded-full bg-mint/8 translate-y-1/2 -translate-x-1/4"></div>
+          <span class="absolute -top-0 left-4 bg-ember text-white text-[0.6rem] font-bold px-3 py-1 rounded-b-lg tracking-wider">おすすめ</span>
+          <p class="text-ember text-xs font-bold mb-1 mt-5">AUTOMATION</p>
+          <h3 class="font-heading font-bold text-sm mb-3">AI自動化・業務効率化</h3>
+          <p class="text-3xl font-heading font-black mb-2">無料<span class="text-ember">トライアル</span></p>
+          <p class="text-xs text-cloud/60 leading-relaxed relative z-10">まず1つの業務を無料で自動化。効果を確認してから個別見積もり。</p>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-sand/60 p-6 card-lift gs-price">
+          <p class="text-smoke text-xs font-bold mb-1">APP</p>
+          <h3 class="font-heading font-bold text-sm mb-3">アプリ開発</h3>
+          <p class="text-xl font-heading font-black mb-2">無料ヒアリング</p>
+          <p class="text-xs text-smoke leading-relaxed">要件を整理した上で個別見積もり。伴走型で開発します。</p>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-sand/60 p-6 card-lift gs-price">
+          <p class="text-smoke text-xs font-bold mb-1">LP</p>
+          <h3 class="font-heading font-bold text-sm mb-3">LP制作</h3>
+          <p class="text-xl font-heading font-black mb-2">&yen;10,000<span class="text-sm font-bold">〜</span></p>
+          <p class="text-xs text-smoke leading-relaxed">ライト ¥10,000（3日）<br>スタンダード ¥15,000（5日）</p>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-sand/60 p-6 card-lift gs-price">
+          <p class="text-smoke text-xs font-bold mb-1">TRAINING</p>
+          <h3 class="font-heading font-bold text-sm mb-3">AI導入支援・研修</h3>
+          <p class="text-xl font-heading font-black mb-2">無料ヒアリング</p>
+          <p class="text-xs text-smoke leading-relaxed">非エンジニア向け。実体験ベースのロードマップ → 個別見積もり。</p>
+        </div>
+      </div>
+
+      <div class="text-center mt-10 gs-price">
+        <div class="inline-block bg-gradient-to-r from-ember/10 to-mint/10 border border-ember/20 rounded-xl px-6 py-4 max-w-lg">
+          <p class="text-base font-heading font-bold text-ink mb-1">効果が出るまで、お金はいただきません。</p>
+          <p class="text-sm text-smoke">まず1つ、<span class="text-ember font-bold">無料</span>で自動化してみてください。</p>
+        </div>
+      </div>
+      <p class="text-center text-xs text-sand mt-4">
+        ※ お見積もりの流れ: ヒアリング → 要件整理 → お見積書。無理な営業は一切しません。
       </p>
-      <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in">
-        <a href="https://coconala.com/" class="inline-block bg-[var(--accent)] text-white font-bold text-lg py-4 px-10 rounded-lg hover:opacity-90 transition-all">
-          <!-- 出品後に正式URLに差替え -->
-          ココナラで依頼する
+    </div>
+  </section>
+
+  <!-- ===== 9. FAQ ===== -->
+  <section class="py-20 md:py-28 bg-white">
+    <div class="max-w-3xl mx-auto px-6">
+      <p class="text-ember font-heading font-bold text-xs tracking-[0.2em] text-center mb-3">FAQ</p>
+      <h2 class="font-heading text-2xl md:text-3xl font-black text-center mb-12">よくある質問</h2>
+
+      <div class="space-y-0">
+        <div class="faq-item py-5 cursor-pointer">
+          <div class="flex items-center justify-between gap-4">
+            <h3 class="font-heading font-bold text-sm">AIって難しくないですか？うちのスタッフに使えますか？</h3>
+            <svg class="faq-chevron w-4 h-4 text-ember shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+          <div class="faq-answer text-sm text-smoke leading-relaxed pt-3">
+            操作するのはあなたのスタッフではなく、仕組みそのものです。一度構築すれば、あとは自動で動きます。特別なスキルは必要ありません。
+          </div>
+        </div>
+
+        <div class="faq-item py-5 cursor-pointer">
+          <div class="flex items-center justify-between gap-4">
+            <h3 class="font-heading font-bold text-sm">費用はどのくらいかかりますか？</h3>
+            <svg class="faq-chevron w-4 h-4 text-ember shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+          <div class="faq-answer text-sm text-smoke leading-relaxed pt-3">
+            プロジェクトの規模や内容によって変わります。AI自動化はまず1つの業務を無料でお試しいただけます。その後、効果を見てからご予算に合わせてご提案します。
+          </div>
+        </div>
+
+        <div class="faq-item py-5 cursor-pointer">
+          <div class="flex items-center justify-between gap-4">
+            <h3 class="font-heading font-bold text-sm">納品後、自分たちでメンテナンスできますか？</h3>
+            <svg class="faq-chevron w-4 h-4 text-ember shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+          <div class="faq-answer text-sm text-smoke leading-relaxed pt-3">
+            はい。運用マニュアルを付けて納品します。トラブル時のサポート体制もご相談の上で設計できます。「作って終わり」にはしません。
+          </div>
+        </div>
+
+        <div class="faq-item py-5 cursor-pointer">
+          <div class="flex items-center justify-between gap-4">
+            <h3 class="font-heading font-bold text-sm">遠方でも依頼できますか？</h3>
+            <svg class="faq-chevron w-4 h-4 text-ember shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+          <div class="faq-answer text-sm text-smoke leading-relaxed pt-3">
+            もちろんです。ヒアリングから納品まですべてオンラインで完結します。全国どこからでもご依頼いただけます。
+          </div>
+        </div>
+
+        <div class="faq-item py-5 cursor-pointer">
+          <div class="flex items-center justify-between gap-4">
+            <h3 class="font-heading font-bold text-sm">実績がまだ少ないようですが、大丈夫ですか？</h3>
+            <svg class="faq-chevron w-4 h-4 text-ember shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+          <div class="faq-answer text-sm text-smoke leading-relaxed pt-3">
+            正直に言います。クライアント案件の実績はまだこれからです。だから、まず1つの業務を無料で自動化します。動くシステムを見てから判断してください。このポートフォリオサイト自体も、月270投稿の自動化パイプラインも、論文管理アプリも ── すべて実稼働中のシステムです。「作れます」ではなく「作って動かしています」が、いまの実績です。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 10. CTA + FOOTER ===== -->
+  <section id="contact" class="relative py-24 md:py-32 bg-ink text-white overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none dot-grid" style="opacity:0.3;"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 50% 50% at 50% 110%, rgba(255,107,53,0.12), transparent);"></div>
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <!-- Tech strip -->
+      <div class="flex items-center justify-center gap-6 mb-10 text-white/20">
+        <span class="text-xs font-heading font-bold tracking-wider">Python</span>
+        <span class="text-white/10">|</span>
+        <span class="text-xs font-heading font-bold tracking-wider">Claude AI</span>
+        <span class="text-white/10">|</span>
+        <span class="text-xs font-heading font-bold tracking-wider">GitHub Actions</span>
+        <span class="text-white/10">|</span>
+        <span class="text-xs font-heading font-bold tracking-wider">Playwright</span>
+      </div>
+
+      <h2 class="font-heading text-3xl md:text-4xl font-black mb-3 leading-tight">まずは<span class="text-ember">1つ無料で</span><br class="md:hidden">自動化しませんか？</h2>
+      <p class="text-lg text-cloud/80 font-heading font-bold mb-2">「こんなこと自動化できる？」でOK。</p>
+      <p class="text-sm text-cloud/50 max-w-md mx-auto mb-10 leading-relaxed">
+        お見積りは無料。無理な営業は一切しません。
+      </p>
+      <div class="flex flex-col sm:flex-row justify-center gap-3">
+        <a href="https://x.com/karada_capital" target="_blank" rel="noopener" class="btn-primary inline-flex items-center justify-center gap-2 bg-ember text-white font-bold py-3.5 px-8 rounded-xl text-sm">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X DMで相談する
         </a>
-        <a href="https://crowdworks.jp/" class="inline-block border-2 border-white/50 text-white font-bold text-lg py-4 px-10 rounded-lg hover:bg-white/10 transition-all">
-          <!-- 登録後に正式URLに差替え -->
-          CrowdWorksで依頼する
+        <a href="https://github.com/meketego-web" target="_blank" rel="noopener" class="btn-ghost inline-flex items-center justify-center gap-2 border-2 border-white/20 text-white font-bold py-3.5 px-8 rounded-xl text-sm">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          GitHub
         </a>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="bg-[#111] text-gray-500 py-8">
-    <div class="max-w-6xl mx-auto px-6 text-center text-sm">
-      <p>&copy; 2026 S_Web All Rights Reserved.</p>
+  <footer class="bg-[#0a0a0f] text-smoke py-8">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between text-xs gap-3">
+      <div class="flex items-center gap-2">
+        <svg width="18" height="18" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="var(--ink)"/><rect x="25" y="20" width="50" height="14" rx="3" fill="var(--ember)" opacity="0.4"/><rect x="40" y="20" width="14" height="60" rx="3" fill="var(--ember)" opacity="0.4"/></svg>
+        <p>&copy; 2026 Tego. All Rights Reserved.</p>
+      </div>
+      <p class="text-smoke/50">AIの力で作り、人間の目で仕上げた。</p>
     </div>
   </footer>
 
+  <!-- ===== SCRIPTS ===== -->
   <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // --- Header scroll behavior ---
+      const header = document.getElementById('siteHeader');
+      let lastScroll = 0;
+      const handleHeaderScroll = () => {
+        const y = window.scrollY;
+        if (y > 60) {
+          header.classList.remove('header-transparent');
+          header.classList.add('header-solid');
+        } else {
+          header.classList.remove('header-solid');
+          header.classList.add('header-transparent');
+        }
+        lastScroll = y;
+      };
+      window.addEventListener('scroll', handleHeaderScroll, { passive: true });
+      handleHeaderScroll();
+
+      // --- Active nav tracking ---
+      const navLinks = document.querySelectorAll('.nav-link[data-section]');
+      const sections = document.querySelectorAll('section[id]');
+      const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            navLinks.forEach(l => l.classList.remove('active'));
+            const active = document.querySelector(`.nav-link[data-section="${entry.target.id}"]`);
+            if (active) active.classList.add('active');
+          }
+        });
+      }, { threshold: 0.3, rootMargin: '-80px 0px -40% 0px' });
+      sections.forEach(s => navObserver.observe(s));
+
+      // --- Mobile menu ---
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      menuBtn.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.contains('open');
+        mobileMenu.classList.toggle('open');
+        menuBtn.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', !isOpen);
+      });
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          menuBtn.classList.remove('open');
+          menuBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // --- FAQ accordion (dynamic height) ---
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const answer = item.querySelector('.faq-answer');
+          const isOpen = item.classList.contains('open');
+
+          // Close all others
+          document.querySelectorAll('.faq-item.open').forEach(other => {
+            if (other !== item) {
+              other.classList.remove('open');
+              other.querySelector('.faq-answer').style.maxHeight = '0';
+            }
+          });
+
+          if (isOpen) {
+            item.classList.remove('open');
+            answer.style.maxHeight = '0';
+          } else {
+            item.classList.add('open');
+            answer.style.maxHeight = answer.scrollHeight + 16 + 'px';
+          }
+        });
+      });
+
+      // --- Count-up animation ---
+      const countUpObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.dataset.target);
+            const duration = 1500;
+            const start = performance.now();
+            const animate = (now) => {
+              const progress = Math.min((now - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+              el.textContent = Math.round(target * eased);
+              if (progress < 1) requestAnimationFrame(animate);
+            };
+            requestAnimationFrame(animate);
+            countUpObserver.unobserve(el);
+          }
+        });
+      }, { threshold: 0.5 });
+      document.querySelectorAll('.count-up').forEach(el => countUpObserver.observe(el));
+
+      // --- GSAP Animations (after GSAP loads) ---
+      const initGSAP = () => {
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+          setTimeout(initGSAP, 100);
+          return;
+        }
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Respect reduced motion
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        // Hero entrance
+        gsap.from('.gs-hero', {
+          y: 30, opacity: 0, duration: 0.7, stagger: 0.12,
+          ease: 'power3.out'
+        });
+
+        // Hero bento grid
+        gsap.from('.gs-bento > *', {
+          y: 20, opacity: 0, duration: 0.7, stagger: 0.15,
+          delay: 0.4, ease: 'power3.out'
+        });
+
+        // Numbers strip
+        gsap.from('.gs-num', {
+          y: 20, opacity: 0, duration: 0.6, stagger: 0.1,
+          scrollTrigger: { trigger: '.gs-num', start: 'top 85%', once: true }
+        });
+
+        // Pain points
+        gsap.from('.gs-pain', {
+          y: 30, opacity: 0, duration: 0.6, stagger: 0.12,
+          scrollTrigger: { trigger: '.gs-pain', start: 'top 80%', once: true }
+        });
+
+        // Story terminal blocks
+        gsap.from('.gs-story', {
+          y: 20, opacity: 0, duration: 0.6, stagger: 0.2,
+          scrollTrigger: { trigger: '.gs-story', start: 'top 80%', once: true }
+        });
+
+        // Services
+        gsap.from('.gs-svc', {
+          y: 25, opacity: 0, duration: 0.6, stagger: 0.1,
+          scrollTrigger: { trigger: '.gs-svc', start: 'top 80%', once: true }
+        });
+
+        // Projects
+        gsap.from('.gs-proj', {
+          y: 40, opacity: 0, duration: 0.8, stagger: 0.2,
+          scrollTrigger: { trigger: '.gs-proj', start: 'top 80%', once: true }
+        });
+
+        // Process timeline
+        gsap.from('.gs-process', {
+          x: -30, opacity: 0, duration: 0.6, stagger: 0.15,
+          scrollTrigger: { trigger: '.gs-process', start: 'top 80%', once: true }
+        });
+
+        // Pricing
+        gsap.from('.gs-price', {
+          y: 25, opacity: 0, duration: 0.5, stagger: 0.1,
+          scrollTrigger: { trigger: '.gs-price', start: 'top 80%', once: true }
+        });
+      };
+      initGSAP();
+
+    });
   </script>
 
 </body>
