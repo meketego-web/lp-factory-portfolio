@@ -30,7 +30,7 @@
             sand: '#e8e4dd',
             ember: { DEFAULT: '#ff6b35', dark: '#e55a25', glow: 'rgba(255,107,53,0.15)' },
             mint: { DEFAULT: '#2dd4a8', light: '#d1faf0' },
-            smoke: '#8b8b97',
+            smoke: '#9d9daa',
             cloud: '#c4c3ce',
           },
           fontFamily: {
@@ -58,7 +58,7 @@
       --sand: #e8e4dd;
       --ember: #ff6b35;
       --mint: #2dd4a8;
-      --smoke: #8b8b97;
+      --smoke: #9d9daa;
       --cloud: #c4c3ce;
     }
     body { font-family: 'Noto Sans JP', sans-serif; color: #1e293b; }
@@ -222,8 +222,20 @@
           <p class="text-base md:text-lg text-white/85 mb-3 gs-hero leading-relaxed font-heading font-bold">
             あなたの一日が、雑務で終わっていい理由はない。
           </p>
-          <p class="text-sm text-smoke mb-8 gs-hero leading-relaxed max-w-md">
+          <p class="text-sm text-smoke mb-5 gs-hero leading-relaxed max-w-md">
             AIにできることはAIへ。何を自動化して、何を残すか——<br>現場目線で、一緒に考えます。
+          </p>
+          <!-- Target audience -->
+          <p class="text-xs text-cloud/50 mb-8 gs-hero">
+            <span class="inline-flex items-center gap-1.5 bg-white/[0.06] border border-white/[0.08] rounded-full px-3 py-1 mr-1.5 mb-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-ember"></span>小売・店舗運営
+            </span>
+            <span class="inline-flex items-center gap-1.5 bg-white/[0.06] border border-white/[0.08] rounded-full px-3 py-1 mr-1.5 mb-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-mint"></span>少人数チーム
+            </span>
+            <span class="inline-flex items-center gap-1.5 bg-white/[0.06] border border-white/[0.08] rounded-full px-3 py-1 mb-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-cloud/50"></span>非エンジニアの管理職
+            </span>
           </p>
           <div class="flex flex-col sm:flex-row gap-3 gs-hero">
             <a href="#projects" class="btn-ghost border-2 border-white/20 text-white font-bold py-3 px-7 rounded-xl text-center text-sm">
@@ -248,7 +260,22 @@
               <p class="text-[0.65rem] text-smoke mt-1">で実稼働</p>
             </div>
           </div>
-          <div class="mt-5 bg-white/[0.04] border border-white/[0.06] rounded-lg px-4 py-2.5 gs-hero">
+          <!-- Differentiation badges -->
+          <div class="mt-5 flex flex-wrap gap-2 gs-hero">
+            <span class="inline-flex items-center gap-1.5 bg-ember/10 border border-ember/20 text-ember text-xs font-bold px-3 py-1.5 rounded-lg">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              追加ツール費 ¥0
+            </span>
+            <span class="inline-flex items-center gap-1.5 bg-mint/10 border border-mint/20 text-mint text-xs font-bold px-3 py-1.5 rounded-lg">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              現場経験ベースの設計
+            </span>
+            <span class="inline-flex items-center gap-1.5 bg-white/[0.06] border border-white/[0.08] text-cloud text-xs font-bold px-3 py-1.5 rounded-lg">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              効果が出るまで無料
+            </span>
+          </div>
+          <div class="mt-3 bg-white/[0.04] border border-white/[0.06] rounded-lg px-4 py-2.5 gs-hero">
             <p class="text-xs text-cloud/70">Gemini縛り・通常業務と並行・<span class="text-mint font-bold">初の外部案件で実証済み</span> → <a href="#case-study" class="text-ember underline underline-offset-2 hover:text-white transition-colors">案件実績を見る</a></p>
           </div>
         </div>
@@ -367,6 +394,14 @@
             月次業務を仕組み化。少人数で大きく動く
           </div>
         </div>
+      </div>
+      <!-- Section CTA -->
+      <div class="text-center mt-14">
+        <a href="#contact" class="btn-primary inline-flex items-center gap-2 bg-ember text-white font-bold py-3 px-7 rounded-xl text-sm">
+          まず1つ、無料で自動化してみる
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+        <p class="text-xs text-smoke mt-2">相談だけでもOK / 売り込みません</p>
       </div>
     </div>
   </section>
@@ -507,6 +542,13 @@
             <span class="bg-paper text-smoke px-2.5 py-1 rounded-md">実践型</span>
           </div>
         </div>
+      </div>
+      <!-- Section CTA -->
+      <div class="text-center mt-14">
+        <a href="#contact" class="btn-primary inline-flex items-center gap-2 bg-ember text-white font-bold py-3 px-7 rounded-xl text-sm">
+          無料で相談する
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
       </div>
     </div>
   </section>
@@ -786,6 +828,48 @@
           </div>
         </div>
       </div>
+      <!-- Before/After comparison -->
+      <div class="border-t border-white/[0.07] pt-12 mt-12">
+        <p class="text-center text-[0.6rem] text-cloud/30 font-bold tracking-[0.25em] uppercase mb-8">導入 Before / After</p>
+        <div class="grid md:grid-cols-3 gap-5">
+          <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl p-5 text-center">
+            <p class="text-[0.65rem] text-cloud/40 font-bold mb-3">朝の数字集計</p>
+            <div class="flex items-center justify-center gap-3">
+              <span class="text-red-400/80 text-sm line-through">20分/日</span>
+              <svg class="w-4 h-4 text-mint" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+              <span class="text-mint font-bold text-lg">0分</span>
+            </div>
+            <p class="text-[0.6rem] text-cloud/30 mt-2">自動集計 + Slack通知</p>
+          </div>
+          <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl p-5 text-center">
+            <p class="text-[0.65rem] text-cloud/40 font-bold mb-3">月次レポート作成</p>
+            <div class="flex items-center justify-center gap-3">
+              <span class="text-red-400/80 text-sm line-through">30分</span>
+              <svg class="w-4 h-4 text-mint" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+              <span class="text-mint font-bold text-lg">3分</span>
+            </div>
+            <p class="text-[0.6rem] text-cloud/30 mt-2">確認・承認のみ</p>
+          </div>
+          <div class="bg-white/[0.04] border border-white/[0.06] rounded-2xl p-5 text-center">
+            <p class="text-[0.65rem] text-cloud/40 font-bold mb-3">情報共有・連絡</p>
+            <div class="flex items-center justify-center gap-3">
+              <span class="text-red-400/80 text-sm line-through">手動転記</span>
+              <svg class="w-4 h-4 text-mint" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+              <span class="text-mint font-bold text-lg">自動配信</span>
+            </div>
+            <p class="text-[0.6rem] text-cloud/30 mt-2">Gemini要約 + 自動送信</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section CTA -->
+      <div class="text-center mt-14">
+        <a href="#contact" class="btn-primary inline-flex items-center gap-2 bg-ember text-white font-bold py-3 px-7 rounded-xl text-sm">
+          あなたの現場でも試してみる
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+        <p class="text-xs text-cloud/30 mt-2">まず1つの業務を無料で自動化します</p>
+      </div>
     </div>
   </section>
 
@@ -908,6 +992,13 @@
       <p class="text-center text-xs text-sand mt-4">
         ※ お見積もりの流れ: ヒアリング → 要件整理 → お見積書。無理な営業は一切しません。
       </p>
+      <!-- Section CTA -->
+      <div class="text-center mt-10">
+        <a href="#contact" class="btn-primary inline-flex items-center gap-2 bg-ember text-white font-bold py-3.5 px-8 rounded-xl text-sm">
+          30秒で相談してみる
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -992,8 +1083,32 @@
       <p class="text-sm text-cloud/50 max-w-md mx-auto mb-10 leading-relaxed">
         お見積りは無料。無理な営業は一切しません。
       </p>
+      <!-- Contact Form -->
+      <form action="https://formspree.io/f/xnjgywyz" method="POST" class="max-w-md mx-auto mb-10 text-left space-y-4">
+        <div>
+          <label for="contact-name" class="block text-xs text-cloud/50 mb-1.5 font-bold">お名前</label>
+          <input type="text" id="contact-name" name="name" required placeholder="山田 太郎"
+            class="w-full bg-white/[0.06] border border-white/[0.1] rounded-lg px-4 py-3 text-sm text-white placeholder-cloud/30 focus:outline-none focus:border-ember/50 focus:ring-1 focus:ring-ember/30 transition-colors">
+        </div>
+        <div>
+          <label for="contact-email" class="block text-xs text-cloud/50 mb-1.5 font-bold">メールアドレス</label>
+          <input type="email" id="contact-email" name="email" required placeholder="example@mail.com"
+            class="w-full bg-white/[0.06] border border-white/[0.1] rounded-lg px-4 py-3 text-sm text-white placeholder-cloud/30 focus:outline-none focus:border-ember/50 focus:ring-1 focus:ring-ember/30 transition-colors">
+        </div>
+        <div>
+          <label for="contact-message" class="block text-xs text-cloud/50 mb-1.5 font-bold">ご相談内容</label>
+          <textarea id="contact-message" name="message" rows="3" required placeholder="「こんなこと自動化できる？」でOKです"
+            class="w-full bg-white/[0.06] border border-white/[0.1] rounded-lg px-4 py-3 text-sm text-white placeholder-cloud/30 focus:outline-none focus:border-ember/50 focus:ring-1 focus:ring-ember/30 transition-colors resize-none"></textarea>
+        </div>
+        <button type="submit" class="btn-primary w-full bg-ember text-white font-bold py-3.5 rounded-xl text-sm">
+          30秒で相談してみる
+        </button>
+        <p class="text-center text-[0.65rem] text-cloud/30">売り込みは一切しません。お気軽にどうぞ。</p>
+      </form>
+
+      <p class="text-xs text-cloud/30 mb-4">または</p>
       <div class="flex flex-col sm:flex-row justify-center gap-3">
-        <a href="https://x.com/ai_tego76802" target="_blank" rel="noopener" class="btn-primary inline-flex items-center justify-center gap-2 bg-ember text-white font-bold py-3.5 px-8 rounded-xl text-sm">
+        <a href="https://x.com/ai_tego76802" target="_blank" rel="noopener" class="btn-ghost inline-flex items-center justify-center gap-2 border-2 border-white/20 text-white font-bold py-3.5 px-8 rounded-xl text-sm">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           X DMで相談する
         </a>
